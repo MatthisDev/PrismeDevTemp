@@ -31,7 +31,7 @@ public class SpawnItems : MonoBehaviour
     {
         if(NetworkManager.Singleton.IsHost)
         {
-            Instantiate(InventairePrefabs, Vector3.zero, Quaternion.identity);
+            Instantiate(InventairePrefabs, new Vector3(474,268,0), Quaternion.identity);
             Instantiate(ItemsPrefabs, Vector3.zero, Quaternion.identity);
         }
     }
