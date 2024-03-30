@@ -29,6 +29,7 @@ public class NetworkUI : NetworkBehaviour
                 NetworkManager.Singleton.StartClient();
                 Debug.Log("Start CLIENT");
             });
+        
     }
     public void StartNewGame()
     {

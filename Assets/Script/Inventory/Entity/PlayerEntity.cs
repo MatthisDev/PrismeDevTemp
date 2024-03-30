@@ -1,0 +1,51 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+// script qui gère les stats du joueur
+public class PlayerEntity : MonoBehaviour 
+{
+    public PlayerStat MaxPv;
+    public PlayerStat Strength;
+    public PlayerStat Defense;
+    public PlayerStat Intelligence;
+
+    public float PV;
+
+    private void Awake()
+    {
+        PV = MaxPv.Value;
+    }
+
+    public void EquipEquipement(InventoryItemData item) // Ajouter tous les bonus possibles venant de l'équipement
+    {
+        bool PvAtmMax = MaxPv.Value == PV;
+        EquippableItem equipement = (EquippableItem)item;
+        MaxPv.AddModifier(new StatsModifier(equipement.PvBonus,StatModType.Flat,item));
+        MaxPv.AddModifier(new StatsModifier(equipement.PvPercentBonus,StatModType.PercentMult,item));
+        Strength.AddModifier(new StatsModifier(equipement.StrengthBonus,StatModType.Flat,item));
+        Strength.AddModifier(new StatsModifier(equipement.StrengthPercentBonus,StatModType.PercentMult,item));
+        Defense.AddModifier(new StatsModifier(equipement.DefenseBonus,StatModType.Flat,item));
+        Defense.AddModifier(new StatsModifier(equipement.DefensePercentBonus,StatModType.PercentMult,item));
+        Intelligence.AddModifier(new StatsModifier(equipement.IntelligenceBonus,StatModType.Flat,item));
+        Intelligence.AddModifier(new StatsModifier(equipement.IntelligencePercentBonus,StatModType.PercentMult,item));
+        Debug.Log("equiped");
+        if (PvAtmMax)
+        {
+            PV = MaxPv.Value;
+        }
+        
+    }
+
+    public void DesequipEquipement(InventoryItemData item) // enlever tous les bonus octroyé par l'équipement
+    {
+        MaxPv.RemoveAllModifiersFromSource(item);
+        Strength.RemoveAllModifiersFromSource(item);
+        Defense.RemoveAllModifiersFromSource(item);
+        Intelligence.RemoveAllModifiersFromSource(item);
+        if (PV > MaxPv.Value) // mettre à jour les pv si ils sont décendu
+        {
+            PV = MaxPv.Value;
+        }
+    }
+}

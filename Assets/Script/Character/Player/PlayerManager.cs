@@ -42,6 +42,7 @@ namespace Script.Player
                 Instantiate(PrefabCamera, transform.position, transform.rotation);
                 PlayerCamera.Instance.Player = this;
                 PlayerInputManager.Instance.Player = this;
+                SpawnItems.Instance.Spawn();
             }
         }
         
