@@ -37,42 +37,57 @@ public class InventoryUIController : MonoBehaviour
         PlayerInventoryHolder.OnPlayerInventoryDisplayRequested -= DisplayPlayerInventory;
     }
 
-    void Update()
+    private void OpenMenu(bool active)
     {
-        if (!inventoryPanel.gameObject.activeInHierarchy && !PlayerBackpackPanel.gameObject.activeInHierarchy && Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
-            if (Save.gameObject.activeInHierarchy)// si le menu de sauvegarde est ouvert le fermer
-            {
-                Save.gameObject.SetActive(false);
-                Load.gameObject.SetActive(false);
-                Delete.gameObject.SetActive(false);
-            }
-            else // sinon l'ouvrir
-            {
-                Save.gameObject.SetActive(true);
-                Load.gameObject.SetActive(true);
-                Delete.gameObject.SetActive(true);
-            }
-        }
-
-        if (Keyboard.current.tabKey.wasPressedThisFrame && !PlayerEquipementPanel.gameObject.activeInHierarchy)// ouvrir l'équipement
-        {
+        Save.gameObject.SetActive(active);
+        Load.gameObject.SetActive(active);
+        Delete.gameObject.SetActive(active);
+    }
+    private void CloseInputInventoryAction()
+    {
+        var inputInstance = PlayerInputManager.Instance;
+        if (inputInstance.isOpenInventory && !inputInstance.isOpenEquipment &&!PlayerEquipementPanel.gameObject.activeInHierarchy)
+        { 
             PlayerEquipementPanel.gameObject.SetActive(true);
+            inputInstance.isOpenEquipment = true;
         }
-
-        if (Keyboard.current.escapeKey.wasPressedThisFrame && PlayerEquipementPanel.gameObject.activeInHierarchy)
+        
+        // Differentes actions si on appuie sur la closeInput
+        if (inputInstance.closeInput)
         {
-            PlayerEquipementPanel.gameObject.SetActive(false);
-        }
-        if (inventoryPanel.gameObject.activeInHierarchy && Keyboard.current.escapeKey.wasPressedThisFrame) // si inventory panel est ouvert
-        {
-            inventoryPanel.gameObject.SetActive(false); // desactivate inventory, swoosh disapear
+            if (!inventoryPanel.gameObject.activeInHierarchy && !inputInstance.isOpenInventory)
+            {
+                if(Save.gameObject.activeInHierarchy)
+                    OpenMenu(false);
+                else
+                    OpenMenu(true);
+            }
             
+            if (inventoryPanel.gameObject.activeInHierarchy) // si inventory panel est ouvert
+            {
+                inventoryPanel.gameObject.SetActive(false); // desactivate inventory, swoosh disapear
+                
+            }
+
+            if (inputInstance.isOpenInventory) // si l'inventaire du joueur est ouver
+            {
+                PlayerBackpackPanel.gameObject.SetActive(false); // desactivate inventory, swoosh disapear
+                inputInstance.isOpenInventory = false;
+            }
+
+            if (PlayerEquipementPanel.gameObject.activeInHierarchy) // on close l'equipement UI
+            {
+                PlayerEquipementPanel.gameObject.SetActive(false);
+                inputInstance.isOpenEquipment = false;
+            }
+
+            inputInstance.closeInput = false;
         }
-        if (PlayerBackpackPanel.gameObject.activeInHierarchy && Keyboard.current.escapeKey.wasPressedThisFrame) // si l'inventaire du joueur est ouver
-        {
-            PlayerBackpackPanel.gameObject.SetActive(false); // desactivate inventory, swoosh disapear
-        }
+    }
+
+    private void Update()
+    {
+        CloseInputInventoryAction();
     }
 
     void DisplayInventory(InventorySystem invToDisplay, int offset)

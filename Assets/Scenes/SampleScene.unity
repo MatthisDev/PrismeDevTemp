@@ -1508,6 +1508,10 @@ PrefabInstance:
       propertyPath: ItemsPrefabs
       value: 
       objectReference: {fileID: 7929919089236544018, guid: bee6193627cd49b46936c7e85e219d61, type: 3}
+    - target: {fileID: 8317790657533551493, guid: 14cd6dbd8896ab844a9d05ec88c47bd6, type: 3}
+      propertyPath: InventairePrefabs
+      value: 
+      objectReference: {fileID: 9046882852637724368, guid: bbbcb26840bc49b4fba6358407c7e1e9, type: 3}
     - target: {fileID: 8960383302143826225, guid: 14cd6dbd8896ab844a9d05ec88c47bd6, type: 3}
       propertyPath: m_Name
       value: World Load Manager

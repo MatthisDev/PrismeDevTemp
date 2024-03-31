@@ -12,7 +12,8 @@ public class PlayerInventoryHolder : InventoryHolder // inventaire du joueur
     
     public static UnityAction OnPlayerInventoryChanged;
     public static UnityAction<InventorySystem, int> OnPlayerInventoryDisplayRequested;
-
+    
+    [SerializeField]public GameObject InventoryInterface;
     private void Start()
     {
         SaveGameManager.data.playerInventory = new InventorySaveData(primaryInventorySystem);
@@ -29,7 +30,13 @@ public class PlayerInventoryHolder : InventoryHolder // inventaire du joueur
 
     void Update()
     {
-        if (Keyboard.current.tabKey.wasPressedThisFrame) OnPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset); // ouvre l'inventaire du joueur
+        PlayerInputManager inputInstance = PlayerInputManager.Instance;
+        if (!inputInstance.isOpenInventory && inputInstance.inventoryInput) // si on peut ouvrir l'inventaire (touche + pas deja ouvert)
+        {
+            OnPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset); // ouvre l'inventaire du joueur
+            inputInstance.isOpenInventory = true;
+        }
+        inputInstance.inventoryInput = false;
     }
 
     public bool AddToInventory(InventoryItemData data, int amount)

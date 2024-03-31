@@ -28,7 +28,8 @@ public class PlayerInputManager : MonoBehaviour
 
     // Input action
     [SerializeField] public bool inventoryInput;
-    public bool isOpenInventory = false;
+    public bool isOpenInventory = false; 
+    [HideInInspector] public bool isOpenEquipment = false;
 
     [SerializeField] public bool closeInput;
 
