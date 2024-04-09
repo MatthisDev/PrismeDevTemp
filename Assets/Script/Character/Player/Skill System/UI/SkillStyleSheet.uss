@@ -1,0 +1,34 @@
+.StatPanel {
+    flex-grow: 0;
+    background-color: rgb(47, 47, 47);
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+    width: 25%;
+}
+
+.HeaderLabel {
+    -unity-font: url('project://database/Assets/Script/Character/Player/Skill%20System/UI/BebasNeue-Regular.otf?fileID=12800000&guid=0275ce82bf9cab647901b756c90bdedc&type=3#BebasNeue-Regular');
+    -unity-font-definition: url('project://database/Assets/Script/Character/Player/Skill%20System/UI/BebasNeue-Regular%20SDF.asset?fileID=11400000&guid=49d07f86b566b1749a683e27fb097574&type=2#BebasNeue-Regular SDF');
+    -unity-text-align: upper-center;
+    color: rgb(255, 255, 255);
+    font-size: 47px;
+    white-space: nowrap;
+    border-left-color: rgb(255, 255, 255);
+    border-right-color: rgb(255, 255, 255);
+    border-top-color: rgb(255, 255, 255);
+    border-bottom-color: rgb(255, 255, 255);
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+
+.StatLabel {
+    -unity-font: initial;
+    -unity-font-definition: url('project://database/Assets/Script/Character/Player/Skill%20System/UI/BebasNeue-Regular%20SDF.asset?fileID=11400000&guid=49d07f86b566b1749a683e27fb097574&type=2#BebasNeue-Regular SDF');
+    color: rgb(255, 255, 255);
+    -unity-text-align: middle-center;
+    font-size: 30px;
+}

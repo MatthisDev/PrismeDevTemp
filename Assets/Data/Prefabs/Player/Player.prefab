@@ -1501,6 +1501,7 @@ GameObject:
   - component: {fileID: 444582209088457635}
   - component: {fileID: 3919735965666498562}
   - component: {fileID: 5730326686994132753}
+  - component: {fileID: -7759338914961536752}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1740,6 +1741,7 @@ MonoBehaviour:
   primaryInventorySystem:
     InventorySlots: []
   offset: 0
+  InventoryInterface: {fileID: 0}
 --- !u!114 &444582209088457635
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1785,6 +1787,25 @@ MonoBehaviour:
   Intelligence:
     BaseValue: 10
   PV: 100
+  Exp: 0
+  NecessaryExp: 0
+  Level: 0
+  SkillPoints: 0
+--- !u!114 &-7759338914961536752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6132420741812786354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dca23a759b489b469582f093e29369d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SkillPoints: 0
+  player: {fileID: 5730326686994132753}
+  UnlockedSkills: []
 --- !u!1 &6231045195993205607
 GameObject:
   m_ObjectHideFlags: 0

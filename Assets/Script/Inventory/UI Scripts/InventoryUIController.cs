@@ -11,12 +11,14 @@ public class InventoryUIController : MonoBehaviour
     public DynamicInventoryDisplay inventoryPanel;
     public DynamicInventoryDisplay PlayerBackpackPanel;
     public StaticInventoryDisplay PlayerEquipementPanel;
+    public SkillUIManager SkillUIManager;
     public Button Save;
     public Button Load;
     public Button Delete;
 
     private void Awake() // au début tout est désactivé
     {
+        SkillUIManager.gameObject.SetActive(false);
         inventoryPanel.gameObject.SetActive(false);
         PlayerBackpackPanel.gameObject.SetActive(false);
         PlayerEquipementPanel.gameObject.SetActive(false);
@@ -51,7 +53,11 @@ public class InventoryUIController : MonoBehaviour
             PlayerEquipementPanel.gameObject.SetActive(true);
             inputInstance.isOpenEquipment = true;
         }
-        
+
+        if (Keyboard.current.cKey.wasPressedThisFrame && !inventoryPanel.gameObject.activeInHierarchy && !PlayerBackpackPanel.gameObject.activeInHierarchy)
+        {
+            SkillUIManager.gameObject.SetActive(true);
+        }
         // Differentes actions si on appuie sur la closeInput
         if (inputInstance.closeInput)
         {
@@ -62,7 +68,11 @@ public class InventoryUIController : MonoBehaviour
                 else
                     OpenMenu(true);
             }
-            
+
+            if (SkillUIManager.gameObject.activeInHierarchy)
+            {
+                SkillUIManager.gameObject.SetActive(false);
+            }
             if (inventoryPanel.gameObject.activeInHierarchy) // si inventory panel est ouvert
             {
                 inventoryPanel.gameObject.SetActive(false); // desactivate inventory, swoosh disapear

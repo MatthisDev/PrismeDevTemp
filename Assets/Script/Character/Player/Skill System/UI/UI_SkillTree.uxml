@@ -1,0 +1,19 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Script/Character/Player/Skill%20System/UI/SkillStyleSheet.uss?fileID=7433441132597879392&amp;guid=ee4d5fd76f7b6eb44bf916af715c51ac&amp;type=3#SkillStyleSheet" />
+    <ui:VisualElement name="MainPanel" style="flex-grow: 1; flex-direction: row; background-color: rgb(36, 36, 36);">
+        <ui:VisualElement name="StatPanel" class="StatPanel" style="flex-grow: 0; border-right-width: 4px; justify-content: center;">
+            <ui:Label tabindex="-1" text="Stats" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatHeader" class="HeaderLabel" />
+            <ui:Label tabindex="-1" text="MAx Pv : 100" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatLabel_MaxPv" class="StatLabel" />
+            <ui:Label tabindex="-1" text="Force : 100" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatLabel_Strength" class="StatLabel" />
+            <ui:Label tabindex="-1" text="Defense : 100" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatLabel_Defense" class="StatLabel" />
+            <ui:Label tabindex="-1" text="Intelligence : 100" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatLabel_Intelligence" class="StatLabel" />
+            <ui:Label tabindex="-1" text="SkillPoints : 99" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillPointsLabel" class="HeaderLabel" />
+        </ui:VisualElement>
+        <ui:VisualElement name="SkillTree" style="flex-grow: 1;">
+            <ui:VisualElement name="Skill_RowOne" style="flex-grow: 1;" />
+            <ui:VisualElement name="Skill_RowTwo" style="flex-grow: 1;" />
+            <ui:VisualElement name="Skill_RowThree" style="flex-grow: 1;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="SkillDescription" class="StatPanel" style="flex-grow: 0; border-left-width: 4px;" />
+    </ui:VisualElement>
+</ui:UXML>

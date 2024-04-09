@@ -44,7 +44,8 @@ public class MouseItemData : MonoBehaviour // item de la souris
             transform.position = Mouse.current.position.ReadValue();
             if (Mouse.current.leftButton.wasPressedThisFrame && !IsPointerOverUIObject())
             {
-                if(AssignedInventorySlot.ItemData.ItemPrefab != null) Instantiate(AssignedInventorySlot.ItemData.ItemPrefab, _playerTransform.position + _playerTransform.forward * 2f, Quaternion.identity);
+                if(AssignedInventorySlot.ItemData.ItemPrefab != null) 
+                    Instantiate(AssignedInventorySlot.ItemData.ItemPrefab, _playerTransform.position + _playerTransform.forward * 2f, Quaternion.identity);
 
                 if (AssignedInventorySlot.StackSize >1)
                 {

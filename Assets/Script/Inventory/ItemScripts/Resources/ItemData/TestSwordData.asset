@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b19af9e424450d448adaaf6936298af2, type: 3}
+  m_Name: TestSwordData
+  m_EditorClassIdentifier: 
+  ID: 3
+  DisplayName: TestSword
+  Description: This is a test sword
+  Icon: {fileID: 21300000, guid: c184df3afa95f504cbb3325836f8c5f3, type: 3}
+  MaxStackSize: 1
+  ItemPrefab: {fileID: 1142182823715301914, guid: ee0fc531bf55e9443991df3327446e10, type: 3}
+  StrengthBonus: 10
+  PvBonus: 0
+  DefenseBonus: 0
+  IntelligenceBonus: 0
+  StrengthPercentBonus: 0.1
+  PvPercentBonus: 0.1
+  DefensePercentBonus: 0
+  IntelligencePercentBonus: 0
+  EquipementType: 5
