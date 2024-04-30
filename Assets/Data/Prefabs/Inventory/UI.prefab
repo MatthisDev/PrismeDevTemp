@@ -2442,6 +2442,7 @@ GameObject:
   - component: {fileID: 2876622531316618028}
   - component: {fileID: 7669146649616921439}
   - component: {fileID: 5234587535851423536}
+  - component: {fileID: 7969287882227100760}
   m_Layer: 5
   m_Name: SkillUIController
   m_TagString: Untagged
@@ -2496,6 +2497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: febd36fc9a30f824ea58ffda77f15313, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillLibrary: {fileID: 11400000, guid: 77a6c9bd0338fe64c8a3c2db14fcb9a9, type: 2}
+  uiTalentButton: {fileID: 9197481963319205126, guid: ee31e97db70918d44bce0480507757fd, type: 3}
   PlayerSkillManager: {fileID: 0}
   UiDocument: {fileID: 0}
 --- !u!114 &5234587535851423536
@@ -2508,6 +2511,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97452f57ecbe44ba93ca4593514ecc0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7969287882227100760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5115805915424990372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b5bb3f107424513ab99c43f6e815fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &5838986433072293193

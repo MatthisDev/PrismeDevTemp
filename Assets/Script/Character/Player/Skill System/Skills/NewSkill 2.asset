@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31c1a07ce57e4125a6a75b228d77910b, type: 3}
+  m_Name: NewSkill 2
+  m_EditorClassIdentifier: 
+  ID: 0
+  SkillName: NewSkill2
+  UpgradeDatas:
+  - Modifier:
+      Value: 1
+      Type: 300
+      Order: 0
+    StatType: 1
+  IsAbility: 0
+  OverrideDescription: 0
+  SkillDescription: NewSkill2 augmente Force de 100%,
+  Icon: {fileID: 21300000, guid: 919c22cbf81d3b24c804fa908a876cee, type: 3}
+  SkillPrerequisites:
+  - {fileID: 11400000, guid: f2f95bb18342f9548a575452654a2572, type: 2}
+  SkillTier: 3
+  Cost: 1
