@@ -13,7 +13,6 @@ public abstract class InventoryHolder : MonoBehaviour
     public int Offset => offset;
     
     public InventorySystem PrimaryInventorySystem => primaryInventorySystem;
-    
     public static UnityAction<InventorySystem, int> OnDynamicInventoryDisplayRequested;
 
     protected virtual void Awake()
@@ -24,6 +23,7 @@ public abstract class InventoryHolder : MonoBehaviour
 
     protected abstract void LoadInventory(SaveData savedata);
 }
+
 [System.Serializable]
 public struct InventorySaveData
 {

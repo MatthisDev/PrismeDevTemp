@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Inventory.UI_Scripts;
 using Script.Player;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,10 +30,19 @@ public class PlayerInputManager : MonoBehaviour
 
     // Input action
     [SerializeField] public bool inventoryInput;
-    public bool isOpenInventory = false; 
-    [HideInInspector] public bool isOpenEquipment = false;
-
     [SerializeField] public bool closeInput;
+    [SerializeField] public int pageInput;
+
+    private int PageInput
+    {
+        get => pageInput;
+        set
+        {
+            if (value < -1) value = -1;
+            if (value > 1) value = 1;
+            pageInput = value;
+        }
+    }
 
     private void Reset()
     {
@@ -89,6 +100,9 @@ public class PlayerInputManager : MonoBehaviour
             this.PlayerControls.PlayerActions.Inventory.performed += i => inventoryInput = i.ReadValueAsButton();
             this.PlayerControls.PlayerActions.Close.performed += i => closeInput = i.ReadValueAsButton();
             
+            // pages - if key == a or q then pageInput = -1 else if key == e then pageInput = 1 else pageInput = 0 
+            this.PlayerControls.PlayerActions.RightPage.performed += i => PageInput += Convert.ToInt32(i.ReadValueAsButton());
+            this.PlayerControls.PlayerActions.LeftPage.performed += i => PageInput -= Convert.ToInt32(i.ReadValueAsButton());
             inventoryInput = this.PlayerControls.PlayerActions.Close.IsPressed();
         }
 
@@ -114,31 +128,9 @@ public class PlayerInputManager : MonoBehaviour
         }
     }
     
-    /*
-     *  On peut fermer l inventaire de 2 facons
-     *  - la meme touche que sur laquelle on a appuyé (default : tab)
-     *  - echap (touche intuitive)
-     */
-    /*
-    private void HandleInventoryInput()
-    {
-        // si l inventaire est ouvert et qu on appuie sur une touche pour fermer on met a l etat fermé
-        if (isOpenInventory && (inventoryInput || closeInput))
-        {
-                isOpenInventory = false;
-                inventoryInput = false;
-                closeInput = false;
-        }else if (inventoryInput) // detecte l ouverture de l'inventaire
-        {
-            isOpenInventory = true;
-            inventoryInput = false;
-        }
-        
-    }*/
     private void Update()
     {
-        //HandleInventoryInput();
-        if (!isOpenInventory)
+        if (!UIManager.Instance.IsOpenMenu && !UIManager.Instance.IsPageMode)
         {
             HandleMovementInput();
             HandleCameraMovementInput();

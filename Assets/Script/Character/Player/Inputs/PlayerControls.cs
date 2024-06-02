@@ -298,6 +298,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightPage"",
+                    ""type"": ""Button"",
+                    ""id"": ""f422bd06-bda9-4f04-9903-6a16499593e0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LeftPage"",
+                    ""type"": ""Button"",
+                    ""id"": ""b768c30a-5038-4cbf-a4b6-1f58ec534bd1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -344,6 +362,50 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Close"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4ef92e9b-4cc8-47df-a4b9-fd50fdc8ac3d"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightPage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""238f1346-2e60-4daa-88f1-c755a20f1de2"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightPage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ac9edb0a-3b40-495a-8a4a-92d414d85dc9"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftPage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5169c963-b5d2-440c-9b8d-2eb44c1bdaff"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftPage"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -360,6 +422,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions = asset.FindActionMap("PlayerActions", throwIfNotFound: true);
         m_PlayerActions_Inventory = m_PlayerActions.FindAction("Inventory", throwIfNotFound: true);
         m_PlayerActions_Close = m_PlayerActions.FindAction("Close", throwIfNotFound: true);
+        m_PlayerActions_RightPage = m_PlayerActions.FindAction("RightPage", throwIfNotFound: true);
+        m_PlayerActions_LeftPage = m_PlayerActions.FindAction("LeftPage", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -515,12 +579,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IPlayerActionsActions> m_PlayerActionsActionsCallbackInterfaces = new List<IPlayerActionsActions>();
     private readonly InputAction m_PlayerActions_Inventory;
     private readonly InputAction m_PlayerActions_Close;
+    private readonly InputAction m_PlayerActions_RightPage;
+    private readonly InputAction m_PlayerActions_LeftPage;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActionsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Inventory => m_Wrapper.m_PlayerActions_Inventory;
         public InputAction @Close => m_Wrapper.m_PlayerActions_Close;
+        public InputAction @RightPage => m_Wrapper.m_PlayerActions_RightPage;
+        public InputAction @LeftPage => m_Wrapper.m_PlayerActions_LeftPage;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -536,6 +604,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Close.started += instance.OnClose;
             @Close.performed += instance.OnClose;
             @Close.canceled += instance.OnClose;
+            @RightPage.started += instance.OnRightPage;
+            @RightPage.performed += instance.OnRightPage;
+            @RightPage.canceled += instance.OnRightPage;
+            @LeftPage.started += instance.OnLeftPage;
+            @LeftPage.performed += instance.OnLeftPage;
+            @LeftPage.canceled += instance.OnLeftPage;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -546,6 +620,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Close.started -= instance.OnClose;
             @Close.performed -= instance.OnClose;
             @Close.canceled -= instance.OnClose;
+            @RightPage.started -= instance.OnRightPage;
+            @RightPage.performed -= instance.OnRightPage;
+            @RightPage.canceled -= instance.OnRightPage;
+            @LeftPage.started -= instance.OnLeftPage;
+            @LeftPage.performed -= instance.OnLeftPage;
+            @LeftPage.canceled -= instance.OnLeftPage;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -575,5 +655,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnInventory(InputAction.CallbackContext context);
         void OnClose(InputAction.CallbackContext context);
+        void OnRightPage(InputAction.CallbackContext context);
+        void OnLeftPage(InputAction.CallbackContext context);
     }
 }

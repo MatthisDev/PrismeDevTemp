@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using Script.Character.Movement;
+using Script.Inventory.UI_Scripts;
 using UnityEngine;
 using UnityEngine.Timeline;
 
@@ -33,7 +34,7 @@ namespace Script.Player.Movement
         // gere les mouvements
         public void HandleAllMovement()
         {
-            if (!PlayerInputManager.Instance.isOpenInventory)
+            if (!UIManager.Instance.IsOpenInventory)
             {
                 HandleGroundMovement();
                 HandleRotation();

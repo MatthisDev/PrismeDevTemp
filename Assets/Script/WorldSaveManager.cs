@@ -8,6 +8,7 @@ public class WorldSaveManager : MonoBehaviour
 {
     [SerializeField] private int _worldSceneIndex = 0;
     public static WorldSaveManager Instance { private set; get; }
+    public static SaveGameManager SaveGameManagerInstance;
     
     // Correspond au numero de la scene qu on charge
     public int WorldSceneIndex
@@ -15,7 +16,7 @@ public class WorldSaveManager : MonoBehaviour
         private set => _worldSceneIndex = value;
         get => _worldSceneIndex;
     }
-
+    
     private void Awake()
     {
         // On save que s'il n en existe pas deja une 
@@ -23,13 +24,13 @@ public class WorldSaveManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
-        
     }
     
     // Start is called before the first frame update
     void Start()
     {
         DontDestroyOnLoad(gameObject);
+        
     }
 
     public IEnumerator LoadNewGame()

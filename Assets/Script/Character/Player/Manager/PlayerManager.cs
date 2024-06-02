@@ -14,14 +14,12 @@ namespace Script.Player
 
         [HideInInspector] public PlayerAnimatorManager PlayerAnimatorManager { get; set; }
         [HideInInspector] public PlayerMovementManager PlayerMovementManager { set; get; }
-        
         [SerializeField] GameObject PrefabCamera;
 
         // Elle est appellé au tout debut
         protected override void Awake()
         {
             base.Awake();
-            
             PlayerMovementManager = GetComponent<PlayerMovementManager>();
             PlayerAnimatorManager = GetComponent<PlayerAnimatorManager>();
         }
@@ -29,6 +27,7 @@ namespace Script.Player
         protected void Start()
         {
             transform.position = Vector3.zero;
+            Cursor.visible = false;
         }
 
         // Action realiser lorsqu'on est connecté a la partie

@@ -1520,12 +1520,12 @@ Transform:
   m_GameObject: {fileID: 2698395518983725757}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -95.127174, y: -6.755389, z: 172.83842}
-  m_LocalScale: {x: 1.4765445, y: 1.4765445, z: 1.4765445}
+  m_LocalPosition: {x: -95.1272, y: -6.755418, z: 172.83847}
+  m_LocalScale: {x: 1.4765449, y: 1.4765449, z: 1.4765449}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2620529762825206639}
-  m_Father: {fileID: 2110650494683230739}
+  m_Father: {fileID: 684320838600380824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3459038477086717852
 MonoBehaviour:
@@ -1539,7 +1539,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1d71c8a8102bcf429b89be0eebf883d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SaveGameManager: {fileID: 2058958967132287833}
+  Save: {fileID: 8676907776791172429}
+  Load: {fileID: 1357353013194996702}
+  Delete: {fileID: 4260983035905471801}
 --- !u!1 &2705499931712654959
 GameObject:
   m_ObjectHideFlags: 0
@@ -3679,9 +3681,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2110650494683230739}
-  - component: {fileID: 9045681033640539983}
   m_Layer: 5
-  m_Name: InventoryUIController
+  m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3704,7 +3705,6 @@ RectTransform:
   - {fileID: 5738811109735121682}
   - {fileID: 8819897997654350106}
   - {fileID: 9116508038998663046}
-  - {fileID: 2780577166910378118}
   m_Father: {fileID: 684320838600380824}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3712,25 +3712,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &9045681033640539983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8035771532839187412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc3a1030aaad0cd42a2494ea932037a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryPanel: {fileID: 6007076422772529723}
-  PlayerBackpackPanel: {fileID: 5518670036613389416}
-  PlayerEquipementPanel: {fileID: 6864922512848255632}
-  SkillUIManager: {fileID: 7669146649616921439}
-  Save: {fileID: 8676907776791172429}
-  Load: {fileID: 1357353013194996702}
-  Delete: {fileID: 4260983035905471801}
 --- !u!1 &8041258045449647027
 GameObject:
   m_ObjectHideFlags: 0
@@ -4286,6 +4267,7 @@ GameObject:
   - component: {fileID: 5429902356795447577}
   - component: {fileID: 5028264403214320228}
   - component: {fileID: 7676682714680365976}
+  - component: {fileID: 3562705330628678841}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -4305,6 +4287,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2780577166910378118}
   - {fileID: 2110650494683230739}
   - {fileID: 1407279849367649633}
   m_Father: {fileID: 0}
@@ -4377,3 +4360,23 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3562705330628678841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9046882852637724368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc3a1030aaad0cd42a2494ea932037a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 6007076422772529723}
+  playerBackpackPanel: {fileID: 6007076422772529723}
+  playerEquipementPanel: {fileID: 6864922512848255632}
+  skillTreePanel: {fileID: 7669146649616921439}
+  menu: {fileID: 2698395518983725757}
+  save: {fileID: 8676907776791172429}
+  load: {fileID: 1357353013194996702}
+  delete: {fileID: 4260983035905471801}
