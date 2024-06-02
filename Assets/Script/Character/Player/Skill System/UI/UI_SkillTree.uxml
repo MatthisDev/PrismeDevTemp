@@ -10,10 +10,17 @@
             <ui:Label tabindex="-1" text="SkillPoints : 99" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillPointsLabel" class="HeaderLabel" />
         </ui:VisualElement>
         <ui:VisualElement name="SkillTree" style="flex-grow: 1;">
-            <ui:VisualElement name="Skill_RowOne" style="flex-grow: 1;" />
-            <ui:VisualElement name="Skill_RowTwo" style="flex-grow: 1;" />
-            <ui:VisualElement name="Skill_RowThree" style="flex-grow: 1;" />
+            <ui:VisualElement name="Skill_RowOne" class="skill-row" />
+            <ui:VisualElement name="Skill_RowTwo" class="skill-row" />
+            <ui:VisualElement name="Skill_RowThree" class="skill-row" />
         </ui:VisualElement>
-        <ui:VisualElement name="SkillDescription" class="StatPanel" style="flex-grow: 0; border-left-width: 4px;" />
+        <ui:VisualElement name="SkillDescription" class="StatPanel" style="flex-grow: 0; border-left-width: 4px; align-items: center; justify-content: center;">
+            <ui:VisualElement name="icon" style="flex-grow: 0; background-image: url(&apos;project://database/Assets/Art/PNG/Icon32.png?fileID=2800000&amp;guid=454d1883a008ce647b38e4764d373c07&amp;type=3#Icon32&apos;); width: 128px; height: 128px;" />
+            <ui:Label tabindex="-1" text="SkillName" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillNameLabel" class="StatLabel" />
+            <ui:Label tabindex="-1" text="description" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillDescriptionLabel" class="StatLabel" />
+            <ui:Label tabindex="-1" text="cout" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillCostLabel" class="StatLabel" />
+            <ui:Label tabindex="-1" text="prérequis :" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PreReqLabel" class="StatLabel" />
+            <ui:Button text="débloquer compétence" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SkillBuyButton" style="-unity-font-definition: url(&apos;project://database/Assets/Script/Character/Player/Skill%20System/UI/BebasNeue-Regular%20SDF.asset?fileID=11400000&amp;guid=49d07f86b566b1749a683e27fb097574&amp;type=2#BebasNeue-Regular SDF&apos;); font-size: 30px;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

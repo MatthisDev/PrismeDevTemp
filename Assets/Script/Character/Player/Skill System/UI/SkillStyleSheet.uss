@@ -31,4 +31,17 @@
     color: rgb(255, 255, 255);
     -unity-text-align: middle-center;
     font-size: 30px;
+    white-space: normal;
+}
+
+.skill-button {
+    width: 128px;
+    height: 128px;
+}
+
+.skill-row {
+    flex-grow: 1;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }

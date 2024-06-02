@@ -1720,11 +1720,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82d581ec25a6dad4bbccd3563eb260d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractionPoint: {fileID: 1449621291011299449}
-  InteractionLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  InteractionPointRadius: 1
+  interactorSource: {fileID: 3595884332406776395}
+  interactionRange: 0
 --- !u!114 &4122502648129670671
 MonoBehaviour:
   m_ObjectHideFlags: 0

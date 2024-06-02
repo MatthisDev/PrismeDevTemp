@@ -15,7 +15,7 @@ public class PlayerEntity : MonoBehaviour
     public float Exp;
     public float NecessaryExp;
     public int Level;
-    public int SkillPoints;
+    public int SkillPoints = 100;
 
     private void Awake()
     {
@@ -82,7 +82,7 @@ public class PlayerEntity : MonoBehaviour
     public void GainExp(float xp)
     {
         Exp += xp;
-        if (Exp>= NecessaryExp)
+        while (Exp>= NecessaryExp)
         {
             LevelUp();
         }
@@ -90,9 +90,9 @@ public class PlayerEntity : MonoBehaviour
 
     public void LevelUp()
     {
-        Exp = 0;
+        Exp -= NecessaryExp;
         Level += 1;
         SkillPoints += 1;
-        NecessaryExp *= 1.1f;
+        NecessaryExp *= 1.2f;
     }
 }

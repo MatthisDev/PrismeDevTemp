@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c49797555c724d20bc15efd76acf9fdc, type: 3}
   m_Name: Skill Library
   m_EditorClassIdentifier: 
-  SkillLibrary: []
+  SkillLibrary:
+  - {fileID: 11400000, guid: f2f95bb18342f9548a575452654a2572, type: 2}
+  - {fileID: 11400000, guid: 0d2f57731e9d5f2479e997fffe7eb5e7, type: 2}
+  - {fileID: 11400000, guid: 7ee64c1408dfc1143b1b5917e5de49c3, type: 2}
