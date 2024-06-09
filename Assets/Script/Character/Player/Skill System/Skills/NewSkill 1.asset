@@ -19,13 +19,13 @@ MonoBehaviour:
       Value: 1
       Type: 300
       Order: 0
-    StatType: 1
+    StatType: 2
   IsAbility: 0
   OverrideDescription: 0
-  SkillDescription: NewSkill1 augmente Force de 100%,
+  SkillDescription: NewSkill1 augmente Defense de 100%,
   Icon: {fileID: 21300000, guid: eb48728c55f819848822dc2b7a6092ca, type: 3}
   SkillPrerequisites:
   - {fileID: 11400000, guid: f2f95bb18342f9548a575452654a2572, type: 2}
   - {fileID: 11400000, guid: 7ee64c1408dfc1143b1b5917e5de49c3, type: 2}
-  SkillTier: 2
+  SkillTier: 3
   Cost: 1
