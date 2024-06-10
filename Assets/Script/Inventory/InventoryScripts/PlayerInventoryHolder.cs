@@ -7,7 +7,6 @@ public class PlayerInventoryHolder : InventoryHolder // inventaire du joueur
     public static UnityAction OnPlayerInventoryChanged;
     public static UnityAction<InventorySystem, int> OnPlayerInventoryDisplayRequested;
     
-    [SerializeField] public GameObject InventoryInterface;
     private void Start()
     {
         SaveGameManager.data.playerInventory = new InventorySaveData(primaryInventorySystem);

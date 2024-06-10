@@ -10,7 +10,8 @@ using Object = System.Object;
 public class SpawnItems : MonoBehaviour
 {
     public static SpawnItems Instance { private set; get; }
-
+    
+    [SerializeField]
     // Spawn quand le HOTE spawn -> sinon bug
     public GameObject InventairePrefabs;
     public GameObject ItemsPrefabs;

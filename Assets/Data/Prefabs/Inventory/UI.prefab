@@ -118,8 +118,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50.000122, y: 50}
-  m_SizeDelta: {x: 1300.3334, y: 542.6667}
+  m_AnchoredPosition: {x: 48.88, y: 50}
+  m_SizeDelta: {x: 1300.687, y: 542.667}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &9073635678023676373
 Canvas:
@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseInventoryItem: {fileID: 6173643205607481513}
-  inventoryHolder: {fileID: 0}
+  inventoryHolder: {fileID: 4122502648129670671, guid: 9461dd2f20d12e54b9ebbe3d0aef6b11, type: 3}
   slots:
   - {fileID: 5428021400019112617}
   - {fileID: 1423860590284714928}
@@ -553,7 +553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mouseInventoryItem: {fileID: 6173643205607481513}
-  inventoryHolder: {fileID: 4122502648129670671, guid: 9461dd2f20d12e54b9ebbe3d0aef6b11, type: 3}
+  inventoryHolder: {fileID: 0}
   slots: []
 --- !u!1 &1218327547657879137
 GameObject:
@@ -3338,6 +3338,81 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &6945199713543812498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8448038666743898427}
+  - component: {fileID: 1651144425827646641}
+  - component: {fileID: 8089037938775568175}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8448038666743898427
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6945199713543812498}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 684320838600380824}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -619, y: 50}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1651144425827646641
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6945199713543812498}
+  m_CullTransparentMesh: 1
+--- !u!114 &8089037938775568175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6945199713543812498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7153670236643403617
 GameObject:
   m_ObjectHideFlags: 0
@@ -4305,6 +4380,7 @@ RectTransform:
   - {fileID: 2780577166910378118}
   - {fileID: 2110650494683230739}
   - {fileID: 1407279849367649633}
+  - {fileID: 8448038666743898427}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4388,8 +4464,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 6007076422772529723}
-  playerBackpackPanel: {fileID: 6007076422772529723}
-  playerEquipementPanel: {fileID: 6864922512848255632}
+  playerBackpackPanel: {fileID: 5518670036613389416}
+  playerEquipmentPanel: {fileID: 6864922512848255632}
   skillTreePanel: {fileID: 7669146649616921439}
   menu: {fileID: 2698395518983725757}
   save: {fileID: 8676907776791172429}

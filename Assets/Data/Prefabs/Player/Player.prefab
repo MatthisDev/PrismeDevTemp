@@ -1609,7 +1609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 3419717883
+  GlobalObjectIdHash: 2106846599
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -1738,7 +1738,6 @@ MonoBehaviour:
   primaryInventorySystem:
     InventorySlots: []
   offset: 0
-  InventoryInterface: {fileID: 0}
 --- !u!114 &444582209088457635
 MonoBehaviour:
   m_ObjectHideFlags: 0

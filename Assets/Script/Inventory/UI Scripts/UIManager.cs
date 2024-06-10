@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.XR.OpenVR;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -15,7 +18,7 @@ namespace Script.Inventory.UI_Scripts
         
         public DynamicInventoryDisplay inventoryPanel;
         public DynamicInventoryDisplay playerBackpackPanel;
-        public StaticInventoryDisplay playerEquipementPanel;
+        public StaticInventoryDisplay playerEquipmentPanel;
         public SkillUIManager skillTreePanel;
         
         public GameObject menu;
@@ -24,17 +27,17 @@ namespace Script.Inventory.UI_Scripts
         public Button save;
         public Button load;
         public Button delete;
-        
-        public bool IsOpenInventory {private set; get;}
-        public bool IsOpenEquipment {private set; get;}
-        public bool IsOpenMenu;
-        public bool IsOpenSkillTree { private set; get; } 
+
+        public bool IsOpenInventory { private set; get; }
+        public bool IsOpenEquipment { private set; get; }
+        public bool IsOpenMenu { private set; get; }
+        public bool IsOpenSkillTree { private set; get; }
         public bool IsPageMode { private set; get; }
 
         [HideInInspector] 
         public List<Action<bool>> Pages;
 
-        public int _currentPage;
+        private int _currentPage;
         public int CurrentPage
         {
             get => _currentPage;
@@ -53,43 +56,42 @@ namespace Script.Inventory.UI_Scripts
             else
                 Destroy(gameObject);
             
-            skillTreePanel.gameObject.SetActive(false);
-            inventoryPanel.gameObject.SetActive(false);
-            playerBackpackPanel.gameObject.SetActive(false);
-            playerEquipementPanel.gameObject.SetActive(false);
+            /* par defaut tout est ferme */
+            this.OpenMenu(false);
+            this.OpenInventory(false);
+            this.OpenSkillTree(false);
 
-            menu.gameObject.SetActive(false);
-            save.gameObject.SetActive(false);
-            load.gameObject.SetActive(false);
-            delete.gameObject.SetActive(false);
+            this.inventoryPanel.gameObject.SetActive(false);
             
-            this.PageInitialization(); // init ordre des pages
-            
-            
+            /* initialisation du mode page */
+            this.PageInitialization(); 
+
         }
+
         private void Update()
         {
             OpenInputInventoryAction();
             CloseInputInventoryAction();
         }
 
+
         private void OnEnable()
         {
-            InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
+            //InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
             PlayerInventoryHolder.OnPlayerInventoryDisplayRequested += DisplayPlayerInventory;
         }
 
         private void OnDisable()
         {
-            InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory;
+            //InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory;
             PlayerInventoryHolder.OnPlayerInventoryDisplayRequested -= DisplayPlayerInventory;
         }
 
-        void DisplayInventory(InventorySystem invToDisplay, int offset)
+        /*void DisplayInventory(InventorySystem invToDisplay, int offset)
         {
             inventoryPanel.gameObject.SetActive(true);
             inventoryPanel.RefreshDynamicInventory(invToDisplay, offset);
-        }
+        }*/
         void DisplayPlayerInventory(InventorySystem invToDisplay, int offset)
         {
             playerBackpackPanel.gameObject.SetActive(true);
@@ -100,6 +102,8 @@ namespace Script.Inventory.UI_Scripts
         {
             this._currentPage= 0;
             this.Pages = new List<Action<bool>>();
+            
+            // page 1 : Inventory - p2 Arbre de competence - p3 Menu
             this.Pages.AddRange( new Action<bool>[] {OpenInventory, OpenSkillTree, OpenMenu});
         }
 
@@ -130,8 +134,8 @@ namespace Script.Inventory.UI_Scripts
             else
                 playerBackpackPanel.gameObject.SetActive(false);
             
-            playerEquipementPanel.gameObject.SetActive(active);
-            inventoryPanel.gameObject.SetActive(active);
+            playerEquipmentPanel.gameObject.SetActive(active);
+            //inventoryPanel.gameObject.SetActive(active); (sert a rien)
             IsOpenInventory = active;
             IsOpenEquipment = active;
         }
@@ -142,26 +146,27 @@ namespace Script.Inventory.UI_Scripts
             IsOpenSkillTree = active;
         }
 
-        // implemente un systeme de page
         private void OpenInputInventoryAction()
         {
             if (!this.IsPageMode && !this.IsOpenMenu)
             {
                 // si on cherche a rentrer dans le mode page
                 if (!IsOpenInventory && !IsOpenEquipment && PlayerInput.inventoryInput &&
-                    !playerEquipementPanel.gameObject.activeInHierarchy)
+                    !playerEquipmentPanel.gameObject.activeInHierarchy)
                 {
                     
                     this.CurrentPage = 0;
                     this.IsPageMode = true;
                     Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
                     OpenInventory(true);
                 }
                 else if (PlayerInput.closeInput)
                 {
-                    OpenMenu(true);
                     PlayerInput.closeInput = false;
                     Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    OpenMenu(true);
                 }
             }else if (this.IsPageMode)
             {
@@ -180,6 +185,7 @@ namespace Script.Inventory.UI_Scripts
             // Differentes actions si on appuie sur la closeInput
             if (PlayerInput.closeInput)
             {
+
                 if (IsOpenSkillTree)
                     OpenSkillTree(false);
 
@@ -189,10 +195,13 @@ namespace Script.Inventory.UI_Scripts
                 if(IsOpenMenu) 
                     OpenMenu(false);
 
-                Cursor.visible = false;
                 this.IsPageMode = false;
                 PlayerInput.closeInput = false;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             }
+
         }
 
 

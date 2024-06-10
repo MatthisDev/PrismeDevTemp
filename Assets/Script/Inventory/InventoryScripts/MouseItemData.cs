@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Inventory.UI_Scripts;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -39,15 +40,17 @@ public class MouseItemData : MonoBehaviour // item de la souris
 
     private void Update()
     {
+        
         if (AssignedInventorySlot.ItemData != null)
         {
             transform.position = Mouse.current.position.ReadValue();
             if (Mouse.current.leftButton.wasPressedThisFrame && !IsPointerOverUIObject())
             {
-                if(AssignedInventorySlot.ItemData.ItemPrefab != null) 
-                    Instantiate(AssignedInventorySlot.ItemData.ItemPrefab, _playerTransform.position + _playerTransform.forward * 2f, Quaternion.identity);
+                if (AssignedInventorySlot.ItemData.ItemPrefab != null)
+                    Instantiate(AssignedInventorySlot.ItemData.ItemPrefab,
+                        _playerTransform.position + _playerTransform.forward * 2f, Quaternion.identity);
 
-                if (AssignedInventorySlot.StackSize >1)
+                if (AssignedInventorySlot.StackSize > 1)
                 {
                     AssignedInventorySlot.AddToStack(-1);
                     UpdateMouseSlot();

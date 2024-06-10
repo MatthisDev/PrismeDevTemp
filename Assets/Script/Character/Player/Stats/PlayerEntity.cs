@@ -23,7 +23,6 @@ public class PlayerEntity : MonoBehaviour
         Level = 1;
         PV = MaxPv.Value;
     }
-
     public void EquipEquipement(InventoryItemData item) // Ajouter tous les bonus possibles venant de l'équipement
     {
         bool PvAtmMax = MaxPv.Value == PV;
