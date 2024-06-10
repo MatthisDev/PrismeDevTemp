@@ -15,7 +15,7 @@ public class PlayerEntity : MonoBehaviour
     public float Exp;
     public float NecessaryExp;
     public int Level;
-    public int SkillPoints = 100;
+    public int SkillPoints;
 
     private void Awake()
     {

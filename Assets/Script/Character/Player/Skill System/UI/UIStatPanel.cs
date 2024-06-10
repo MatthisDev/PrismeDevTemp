@@ -37,7 +37,7 @@ namespace Script.Player.Skill_System.UI
             SkillPointsLabel = UIManager.UiDocument.rootVisualElement.Q<Label>("SkillPointsLabel");
         }
 
-        private void PopulateLabelText()// change le texte des labels
+        public void PopulateLabelText()// change le texte des labels
         {
             _maxPvLabel.text = "PV Max : "+UIManager.PlayerSkillManager.player.MaxPv.Value.ToString();
             _strengthLabel.text = "Force : "+UIManager.PlayerSkillManager.player.Strength.Value.ToString();

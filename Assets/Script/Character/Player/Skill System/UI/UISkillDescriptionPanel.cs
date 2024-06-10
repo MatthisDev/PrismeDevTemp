@@ -21,6 +21,10 @@ namespace Script.Player.Skill_System.UI
         private void OnEnable()
         {
             UITalentButton.OnSkillButtonClicked += PopulateLabelText;
+            UIManager = GetComponent<SkillUIManager>();
+            GatherLabelReferences();
+            var skill = UIManager.SkillLibrary.GetSkillsOfTier(1)[0];
+            PopulateLabelText(skill);
         }
 
         private void OnDisable()
@@ -33,8 +37,7 @@ namespace Script.Player.Skill_System.UI
         {
             UIManager = GetComponent<SkillUIManager>();
             GatherLabelReferences();
-            var skill = UIManager.SkillLibrary.GetSkillsOfTier(1)[0];
-            PopulateLabelText(skill);
+            
         }
 
         private void GatherLabelReferences()
@@ -54,6 +57,7 @@ namespace Script.Player.Skill_System.UI
             {
                 UIManager.PlayerSkillManager.UnlockSkill(AssignedSkill);
                 PopulateLabelText(AssignedSkill);
+                UIManager.uIStatPanel.PopulateLabelText();
             }
         }
 

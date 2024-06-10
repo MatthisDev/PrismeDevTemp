@@ -9,7 +9,6 @@ public class ItemPickUp : MonoBehaviour// script des objets ramassable
 {
     public float PickUpRadius = 1f;
     public InventoryItemData ItemData;
-    [SerializeField] private float _rotationspeed = 20f;
     
     private SphereCollider myCollider;
 
@@ -24,11 +23,6 @@ public class ItemPickUp : MonoBehaviour// script des objets ramassable
         myCollider = GetComponent<SphereCollider>();
         myCollider.isTrigger = true;
         myCollider.radius = PickUpRadius;
-    }
-
-    private void Update()
-    {
-        transform.Rotate(Vector3.up * _rotationspeed * Time.deltaTime);
     }
 
     private void Start()

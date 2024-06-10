@@ -6,26 +6,25 @@ using UnityEngine;
 [Serializable]
 public class PlayerSkillManager : MonoBehaviour
 {
-    public int SkillPoints;
 
     public PlayerEntity player;
     public List<ScriptableSkill> UnlockedSkills = new List<ScriptableSkill>();
 
     public void GainSkillPoint()
     {
-        SkillPoints++;
+        player.SkillPoints++;
     }
 
     public bool CanAffordSkill(ScriptableSkill skill)
     {
-        return SkillPoints >= skill.Cost;
+        return player.SkillPoints >= skill.Cost;
     }
 
     public void UnlockSkill(ScriptableSkill skill)
     {
         if (!CanAffordSkill(skill)) return;
 
-        SkillPoints -= skill.Cost;
+        player.SkillPoints -= skill.Cost;
         player.UnlockSkill(skill);
         UnlockedSkills.Add(skill);
     }

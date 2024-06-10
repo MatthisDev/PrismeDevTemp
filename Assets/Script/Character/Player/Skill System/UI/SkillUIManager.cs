@@ -11,6 +11,7 @@ public class SkillUIManager : MonoBehaviour
     [SerializeField] private ScriptableSkillLibrary skillLibrary;
     public ScriptableSkillLibrary SkillLibrary => skillLibrary;
     [SerializeField] private VisualTreeAsset uiTalentButton;
+    public UIStatPanel uIStatPanel;
     public PlayerSkillManager PlayerSkillManager;
     public UIDocument UiDocument;
 
@@ -21,9 +22,15 @@ public class SkillUIManager : MonoBehaviour
     {
         UiDocument = GetComponent<UIDocument>();
         PlayerSkillManager = FindObjectOfType<PlayerSkillManager>();
+        uIStatPanel = GetComponent<UIStatPanel>();
     }
 
     private void Start()
+    {
+        
+    }
+
+    private void OnEnable()
     {
         CreateSkillButtons();
     }
