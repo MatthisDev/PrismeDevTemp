@@ -316,6 +316,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""a5e6bb33-06c3-42ee-9343-78f6859d9d00"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -406,6 +415,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""LeftPage"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2fbacb3c-8aef-40e4-920c-d6b3af49d789"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -424,6 +444,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_PlayerActions_Close = m_PlayerActions.FindAction("Close", throwIfNotFound: true);
         m_PlayerActions_RightPage = m_PlayerActions.FindAction("RightPage", throwIfNotFound: true);
         m_PlayerActions_LeftPage = m_PlayerActions.FindAction("LeftPage", throwIfNotFound: true);
+        m_PlayerActions_Interact = m_PlayerActions.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -581,6 +602,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Close;
     private readonly InputAction m_PlayerActions_RightPage;
     private readonly InputAction m_PlayerActions_LeftPage;
+    private readonly InputAction m_PlayerActions_Interact;
     public struct PlayerActionsActions
     {
         private @PlayerControls m_Wrapper;
@@ -589,6 +611,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Close => m_Wrapper.m_PlayerActions_Close;
         public InputAction @RightPage => m_Wrapper.m_PlayerActions_RightPage;
         public InputAction @LeftPage => m_Wrapper.m_PlayerActions_LeftPage;
+        public InputAction @Interact => m_Wrapper.m_PlayerActions_Interact;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -610,6 +633,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @LeftPage.started += instance.OnLeftPage;
             @LeftPage.performed += instance.OnLeftPage;
             @LeftPage.canceled += instance.OnLeftPage;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -626,6 +652,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @LeftPage.started -= instance.OnLeftPage;
             @LeftPage.performed -= instance.OnLeftPage;
             @LeftPage.canceled -= instance.OnLeftPage;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -657,5 +686,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnClose(InputAction.CallbackContext context);
         void OnRightPage(InputAction.CallbackContext context);
         void OnLeftPage(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

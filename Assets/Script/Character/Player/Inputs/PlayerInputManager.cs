@@ -32,7 +32,7 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] public bool inventoryInput;
     [SerializeField] public bool closeInput;
     [SerializeField] public int pageInput;
-
+    [SerializeField] public bool interactInput;
     private int PageInput
     {
         get => pageInput;
@@ -103,6 +103,9 @@ public class PlayerInputManager : MonoBehaviour
             // pages - if key == a or q then pageInput = -1 else if key == e then pageInput = 1 else pageInput = 0 
             this.PlayerControls.PlayerActions.RightPage.performed += i => PageInput += Convert.ToInt32(i.ReadValueAsButton());
             this.PlayerControls.PlayerActions.LeftPage.performed += i => PageInput -= Convert.ToInt32(i.ReadValueAsButton());
+            
+            //action
+            this.PlayerControls.PlayerActions.Interact.performed += i => interactInput = i.ReadValueAsButton();
             inventoryInput = this.PlayerControls.PlayerActions.Close.IsPressed();
         }
 
@@ -130,7 +133,7 @@ public class PlayerInputManager : MonoBehaviour
     
     private void Update()
     {
-        if (!UIManager.Instance.IsOpenMenu && !UIManager.Instance.IsPageMode)
+        if (UIManager.Instance != null && !UIManager.Instance.IsOpenMenu && !UIManager.Instance.IsPageMode && !UIManager.Instance.IsOpenChest)
         {
             HandleMovementInput();
             HandleCameraMovementInput();
@@ -138,7 +141,15 @@ public class PlayerInputManager : MonoBehaviour
         else // on reset les input pour annuler tout mouvement durant l ouverture de l inventaire
             Reset();
     }
-    
+
+    private void LateUpdate()
+    {
+        this.interactInput = false;
+        this.closeInput = false;
+        this.inventoryInput = false;
+        this.pageInput = 0;
+    }
+
     private void HandleMovementInput()
     {
         verticalInput = movementInput.y;

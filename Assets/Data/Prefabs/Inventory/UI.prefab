@@ -2501,6 +2501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillLibrary: {fileID: 11400000, guid: 77a6c9bd0338fe64c8a3c2db14fcb9a9, type: 2}
   uiTalentButton: {fileID: 9197481963319205126, guid: ee31e97db70918d44bce0480507757fd, type: 3}
+  uIStatPanel: {fileID: 0}
   PlayerSkillManager: {fileID: 0}
   UiDocument: {fileID: 0}
 --- !u!114 &5234587535851423536
@@ -4463,7 +4464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc3a1030aaad0cd42a2494ea932037a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryPanel: {fileID: 6007076422772529723}
+  playerDynamicInventory: {fileID: 6007076422772529723}
   playerBackpackPanel: {fileID: 5518670036613389416}
   playerEquipmentPanel: {fileID: 6864922512848255632}
   skillTreePanel: {fileID: 7669146649616921439}
