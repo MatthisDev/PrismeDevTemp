@@ -25,21 +25,29 @@ public class MonsterAI : MonoBehaviour
     
     void Update()
     {
-        if (Vector3.Distance(player.position,transform.position)<MonsterEntity.MonsterData.attackradius)
+        if (!PlayerEntity.IsDead)
         {
-            Quaternion rot = Quaternion.LookRotation(player.position - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, rot, 120 * Time.deltaTime);
-            if (!isattacking)
-            { 
-                StartCoroutine(AttackPlayer());
-            } 
-        }
-        else {
-            if (!isattacking)
+            if (Vector3.Distance(player.position,transform.position)<MonsterEntity.MonsterData.attackradius)
             {
-                Agent.SetDestination(player.position);
+                Quaternion rot = Quaternion.LookRotation(player.position - transform.position);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rot, 120 * Time.deltaTime);
+                if (!isattacking)
+                { 
+                    StartCoroutine(AttackPlayer());
+                } 
+            }
+            else {
+                if (!isattacking)
+                {
+                    Agent.SetDestination(player.position);
+                }
             }
         }
+        else
+        {
+            setplayer();
+        }
+        
         Animator.SetFloat("Speed",Agent.velocity.magnitude);
     }
 
@@ -57,7 +65,7 @@ public class MonsterAI : MonoBehaviour
         isattacking = true;
         Agent.isStopped = true;
         Animator.SetTrigger("Attack");
-        
+        PlayerEntity.TakeDamage(MonsterEntity.MonsterData);
         yield return new WaitForSeconds(MonsterEntity.MonsterData.attackdelay);
         Agent.isStopped = false;
         isattacking = false;
