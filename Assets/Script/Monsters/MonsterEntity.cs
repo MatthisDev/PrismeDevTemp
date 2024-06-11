@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEditor;
 using UnityEngine;
 [Serializable]
 public class MonsterEntity : MonoBehaviour //script qui gère les stats des monstres à faire
 {
     public MonsterData MonsterData;
+    public MonsterAI MonsterAI;
     public float Pv;
 
     private void Awake()
@@ -14,6 +16,7 @@ public class MonsterEntity : MonoBehaviour //script qui gère les stats des mons
         Pv = MonsterData.PV;
     }
 
+    
     public void TakeDamage(float Damage)
     {
         Pv -= Damage;
@@ -25,6 +28,7 @@ public class MonsterEntity : MonoBehaviour //script qui gère les stats des mons
 
     private void Death()
     {
+        
         Destroy(this.gameObject);
     }
 }

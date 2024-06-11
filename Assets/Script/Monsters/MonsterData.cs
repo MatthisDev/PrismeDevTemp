@@ -8,6 +8,9 @@ public class MonsterData : ScriptableObject // data des monstres. en préparatio
     public int MonsterID = -1;
     public string MonsterName;
     public float PV;
+    public float speed;
     public float AttackValue;
+    public float attackradius;
+    public float attackdelay;
     public InventorySystem DropsTable = new InventorySystem(5);
 }

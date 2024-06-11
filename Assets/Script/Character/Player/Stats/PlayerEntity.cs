@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 // script qui gère les stats du joueur
 public class PlayerEntity : MonoBehaviour 
@@ -16,6 +17,8 @@ public class PlayerEntity : MonoBehaviour
     public float NecessaryExp;
     public int Level;
     public int SkillPoints;
+
+    public bool IsDead;
 
     private void Awake()
     {
@@ -76,6 +79,21 @@ public class PlayerEntity : MonoBehaviour
                 Intelligence.AddModifier(upgradeData.Modifier);
             }
         }
+    }
+
+    public void TakeDamage(MonsterData monsterData)
+    {
+        PV -= monsterData.AttackValue * (1 - Defense.Value / 100);
+        PV = (float)Math.Round(PV,2);
+        if (PV<=0 && !IsDead)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        IsDead = true;
     }
 
     public void GainExp(float xp)

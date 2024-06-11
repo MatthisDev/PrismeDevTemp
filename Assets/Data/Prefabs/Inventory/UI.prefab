@@ -11493,7 +11493,7 @@ GameObject:
   - component: {fileID: 5429902356795447577}
   - component: {fileID: 5028264403214320228}
   - component: {fileID: 7676682714680365976}
-  - component: {fileID: 3562705330628678841}
+  - component: {fileID: 8267432438083188924}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -11589,7 +11589,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3562705330628678841
+--- !u!114 &8267432438083188924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11598,9 +11598,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 9046882852637724368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc3a1030aaad0cd42a2494ea932037a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f4c09fce1dc2f042a49f2d03c51c385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryPanel: {fileID: 6007076422772529723}
+  playerBackpackPanel: {fileID: 5518670036613389416}
+  playerEquipementPanel: {fileID: 6864922512848255632}
   playerDynamicInventory: {fileID: 6007076422772529723}
   playerBackpackPanel: {fileID: 5518670036613389416}
   playerEquipmentPanel: {fileID: 6864922512848255632}
@@ -11609,6 +11612,7 @@ MonoBehaviour:
   save: {fileID: 8676907776791172429}
   load: {fileID: 1357353013194996702}
   delete: {fileID: 4260983035905471801}
+<<<<<<< HEAD
   _currentPage: 0
   bgInventory: {fileID: 4891932147963847220}
   bgInventoryChest: {fileID: 7665544409262343946}
@@ -11838,3 +11842,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+=======
+  IsOpenMenu: 0
+  _currentPage: 0
+>>>>>>> e67225d150d068cb7426594b2c87d17a4a1b832b
