@@ -32,9 +32,10 @@ namespace Script.Inventory.UI_Scripts
         public bool IsOpenInventory { private set; get; }
         public bool IsOpenEquipment { private set; get; }
         public bool IsOpenChest { private set; get; }
-        public bool IsOpenMenu { private set; get; }
+        public bool IsOpenMenu {private set; get; }
         public bool IsOpenSkillTree { private set; get; }
-        public bool IsPageMode; 
+        public bool IsPageMode { private set; get; }
+        
 
         [HideInInspector] 
         public List<Action<bool>> Pages;
@@ -50,7 +51,11 @@ namespace Script.Inventory.UI_Scripts
                 _currentPage = value % Pages.Count;
             }
         }
-
+        
+        // background
+        public GameObject bgInventory;
+        public GameObject bgInventoryChest;
+        public GameObject bgMenu;
         private void Awake() // au début tout est désactivé
         {
             if (Instance == null)
@@ -62,6 +67,7 @@ namespace Script.Inventory.UI_Scripts
             this.OpenMenu(false);
             this.OpenInventory(false);
             this.OpenSkillTree(false);
+            this.OpenChestInventory(false);
 
             
             /* initialisation du mode page */
@@ -78,7 +84,7 @@ namespace Script.Inventory.UI_Scripts
 
         private void OnEnable()
         {
-            InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
+            //InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
             PlayerInventoryHolder.OnPlayerInventoryDisplayRequested += DisplayPlayerInventory;
         }
 
@@ -90,7 +96,7 @@ namespace Script.Inventory.UI_Scripts
 
         void DisplayInventory(InventorySystem invToDisplay, int offset)
         {
-            playerDynamicInventory.gameObject.SetActive(true);
+            //playerDynamicInventory.gameObject.SetActive(true);
             playerDynamicInventory.RefreshDynamicInventory(invToDisplay, offset);
         }
         void DisplayPlayerInventory(InventorySystem invToDisplay, int offset)
@@ -120,6 +126,8 @@ namespace Script.Inventory.UI_Scripts
         }
         private void OpenMenu(bool active)
         {
+            bgMenu.gameObject.SetActive(active);
+            
             menu.gameObject.SetActive(active);
             save.gameObject.SetActive(active);
             load.gameObject.SetActive(active);
@@ -140,12 +148,17 @@ namespace Script.Inventory.UI_Scripts
                 this.OpenChestInventory(false);
             
             playerEquipmentPanel.gameObject.SetActive(active);
+            bgInventory.gameObject.SetActive(active);
             IsOpenInventory = active;
             IsOpenEquipment = active;
         }
 
         private void OpenChestInventory(bool active)
         {
+            if(active)
+                InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
+                
+            bgInventoryChest.gameObject.SetActive(active);
             playerDynamicInventory.gameObject.SetActive(active);
             IsOpenChest = active;
         }
@@ -160,15 +173,8 @@ namespace Script.Inventory.UI_Scripts
         {
             if (!this.IsPageMode && !this.IsOpenMenu)
             {
-                // si le joueur interagit avec un item alors on ouvre l'inventaire dedier
-                if (!IsOpenChest && PlayerInput.interactInput && interact)
-                {
-                    Debug.Log("Try to open game");
-                    OpenChestInventory(true);
-                    PlayerInput.interactInput = false;
-                }
                 // si on cherche a rentrer dans le mode page
-                else if (!IsOpenInventory && !IsOpenEquipment && PlayerInput.inventoryInput &&
+                if (!IsOpenInventory && !IsOpenEquipment && PlayerInput.inventoryInput &&
                     !playerEquipmentPanel.gameObject.activeInHierarchy)
                 {
                     this.CurrentPage = 0;
@@ -188,9 +194,13 @@ namespace Script.Inventory.UI_Scripts
             {
                 // si on est dans le mode page pour changer de page
                 if (PlayerInput.pageInput != 0)
-                {
                     SwitchPage(PlayerInput.pageInput);
-                }
+            }
+            // si le joueur interagit avec un item alors on ouvre l'inventaire dedier
+            if (interact && PlayerInput.interactInput && !IsOpenChest && !this.IsOpenMenu && (this.CurrentPage == 0))
+            {
+                OpenChestInventory(true);
+                PlayerInput.interactInput = false;
             }
             PlayerInput.pageInput = 0;
             PlayerInput.inventoryInput = false;
