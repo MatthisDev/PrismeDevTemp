@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using Unity.XR.OpenVR;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Script.Inventory.UI_Scripts
@@ -11,11 +15,11 @@ namespace Script.Inventory.UI_Scripts
     public class UIManager : MonoBehaviour
     {
         public static UIManager Instance { private set; get; }
-        public PlayerInputManager PlayerInput => PlayerInputManager.Instance; 
+        public PlayerInputManager PlayerInput => PlayerInputManager.Instance;
         
-        public DynamicInventoryDisplay inventoryPanel;
+        public DynamicInventoryDisplay playerDynamicInventory;
         public DynamicInventoryDisplay playerBackpackPanel;
-        public StaticInventoryDisplay playerEquipementPanel;
+        public StaticInventoryDisplay playerEquipmentPanel;
         public SkillUIManager skillTreePanel;
         
         public GameObject menu;
@@ -24,12 +28,16 @@ namespace Script.Inventory.UI_Scripts
         public Button save;
         public Button load;
         public Button delete;
+
         
         public bool IsOpenInventory {private set; get;}
         public bool IsOpenEquipment {private set; get;}
         public bool IsOpenMenu;
         public bool IsOpenSkillTree { private set; get; }
         public bool IsPageMode;
+
+        public bool IsOpenChest { private set; get; }
+
 
         [HideInInspector] 
         public List<Action<bool>> Pages;
@@ -53,25 +61,23 @@ namespace Script.Inventory.UI_Scripts
             else
                 Destroy(gameObject);
             
-            skillTreePanel.gameObject.SetActive(false);
-            inventoryPanel.gameObject.SetActive(false);
-            playerBackpackPanel.gameObject.SetActive(false);
-            playerEquipementPanel.gameObject.SetActive(false);
+            /* par defaut tout est ferme */
+            this.OpenMenu(false);
+            this.OpenInventory(false);
+            this.OpenSkillTree(false);
 
-            menu.gameObject.SetActive(false);
-            save.gameObject.SetActive(false);
-            load.gameObject.SetActive(false);
-            delete.gameObject.SetActive(false);
             
-            this.PageInitialization(); // init ordre des pages
-            
-            
+            /* initialisation du mode page */
+            this.PageInitialization(); 
+
         }
+
         private void Update()
         {
-            OpenInputInventoryAction();
+            OpenInputInventoryAction(false);
             CloseInputInventoryAction();
         }
+
 
         private void OnEnable()
         {
@@ -81,14 +87,14 @@ namespace Script.Inventory.UI_Scripts
 
         private void OnDisable()
         {
-            InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory;
+            InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory; // unable
             PlayerInventoryHolder.OnPlayerInventoryDisplayRequested -= DisplayPlayerInventory;
         }
 
         void DisplayInventory(InventorySystem invToDisplay, int offset)
         {
-            inventoryPanel.gameObject.SetActive(true);
-            inventoryPanel.RefreshDynamicInventory(invToDisplay, offset);
+            playerDynamicInventory.gameObject.SetActive(true);
+            playerDynamicInventory.RefreshDynamicInventory(invToDisplay, offset);
         }
         void DisplayPlayerInventory(InventorySystem invToDisplay, int offset)
         {
@@ -100,6 +106,8 @@ namespace Script.Inventory.UI_Scripts
         {
             this._currentPage= 0;
             this.Pages = new List<Action<bool>>();
+            
+            // page 1 : Inventory - p2 Arbre de competence - p3 Menu
             this.Pages.AddRange( new Action<bool>[] {OpenInventory, OpenSkillTree, OpenMenu});
         }
 
@@ -130,10 +138,19 @@ namespace Script.Inventory.UI_Scripts
             else
                 playerBackpackPanel.gameObject.SetActive(false);
             
-            playerEquipementPanel.gameObject.SetActive(active);
-            inventoryPanel.gameObject.SetActive(active);
+            // ex : Si je veux switch de page et avec un inventaire de coffre alors je le ferme aussi
+            if(!active && IsOpenChest)
+                this.OpenChestInventory(false);
+            
+            playerEquipmentPanel.gameObject.SetActive(active);
             IsOpenInventory = active;
             IsOpenEquipment = active;
+        }
+
+        private void OpenChestInventory(bool active)
+        {
+            playerDynamicInventory.gameObject.SetActive(active);
+            IsOpenChest = active;
         }
 
         private void OpenSkillTree(bool active)
@@ -142,26 +159,33 @@ namespace Script.Inventory.UI_Scripts
             IsOpenSkillTree = active;
         }
 
-        // implemente un systeme de page
-        private void OpenInputInventoryAction()
+        public void OpenInputInventoryAction(bool interact)
         {
             if (!this.IsPageMode && !this.IsOpenMenu)
             {
-                // si on cherche a rentrer dans le mode page
-                if (!IsOpenInventory && !IsOpenEquipment && PlayerInput.inventoryInput &&
-                    !playerEquipementPanel.gameObject.activeInHierarchy)
+                // si le joueur interagit avec un item alors on ouvre l'inventaire dedier
+                if (!IsOpenChest && PlayerInput.interactInput && interact)
                 {
-                    
+                    Debug.Log("Try to open game");
+                    OpenChestInventory(true);
+                    PlayerInput.interactInput = false;
+                }
+                // si on cherche a rentrer dans le mode page
+                else if (!IsOpenInventory && !IsOpenEquipment && PlayerInput.inventoryInput &&
+                    !playerEquipmentPanel.gameObject.activeInHierarchy)
+                {
                     this.CurrentPage = 0;
                     this.IsPageMode = true;
                     Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
                     OpenInventory(true);
                 }
-                else if (PlayerInput.closeInput)
+                else if (PlayerInput.closeInput && !IsOpenChest)
                 {
-                    OpenMenu(true);
                     PlayerInput.closeInput = false;
                     Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    OpenMenu(true);
                 }
             }else if (this.IsPageMode)
             {
@@ -169,12 +193,12 @@ namespace Script.Inventory.UI_Scripts
                 if (PlayerInput.pageInput != 0)
                 {
                     SwitchPage(PlayerInput.pageInput);
-                    PlayerInput.pageInput = 0;
                 }
             }
+            PlayerInput.pageInput = 0;
             PlayerInput.inventoryInput = false;
         }
-        private void CloseInputInventoryAction()
+        public void CloseInputInventoryAction()
         {
 
             // Differentes actions si on appuie sur la closeInput
@@ -183,16 +207,27 @@ namespace Script.Inventory.UI_Scripts
                 if (IsOpenSkillTree)
                     OpenSkillTree(false);
 
-                if (IsOpenInventory && IsOpenEquipment) // si l'inventaire (= fermeture stockage + equipement) du joueur est ouvert
-                        OpenInventory(false);
-                
+                if (IsOpenInventory && IsOpenEquipment)
+                    // si l'inventaire (= fermeture stockage + equipement) du joueur est ouvert
+                    OpenInventory(false);
+
+                if (IsOpenChest)
+                {
+                    Debug.Log("desactive");
+                    OpenChestInventory(false);
+                }
+
                 if(IsOpenMenu) 
                     OpenMenu(false);
 
-                Cursor.visible = false;
+                this.CurrentPage = 0;
                 this.IsPageMode = false;
                 PlayerInput.closeInput = false;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
             }
+
         }
 
 
