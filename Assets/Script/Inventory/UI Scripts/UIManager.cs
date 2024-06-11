@@ -28,8 +28,8 @@ namespace Script.Inventory.UI_Scripts
         public bool IsOpenInventory {private set; get;}
         public bool IsOpenEquipment {private set; get;}
         public bool IsOpenMenu;
-        public bool IsOpenSkillTree { private set; get; } 
-        public bool IsPageMode { private set; get; }
+        public bool IsOpenSkillTree { private set; get; }
+        public bool IsPageMode;
 
         [HideInInspector] 
         public List<Action<bool>> Pages;

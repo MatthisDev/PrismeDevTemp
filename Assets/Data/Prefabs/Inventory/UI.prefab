@@ -2501,6 +2501,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillLibrary: {fileID: 11400000, guid: 77a6c9bd0338fe64c8a3c2db14fcb9a9, type: 2}
   uiTalentButton: {fileID: 9197481963319205126, guid: ee31e97db70918d44bce0480507757fd, type: 3}
+  uIStatPanel: {fileID: 0}
   PlayerSkillManager: {fileID: 0}
   UiDocument: {fileID: 0}
 --- !u!114 &5234587535851423536
@@ -4282,7 +4283,7 @@ GameObject:
   - component: {fileID: 5429902356795447577}
   - component: {fileID: 5028264403214320228}
   - component: {fileID: 7676682714680365976}
-  - component: {fileID: 3562705330628678841}
+  - component: {fileID: 8267432438083188924}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -4375,7 +4376,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3562705330628678841
+--- !u!114 &8267432438083188924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4384,14 +4385,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 9046882852637724368}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc3a1030aaad0cd42a2494ea932037a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f4c09fce1dc2f042a49f2d03c51c385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryPanel: {fileID: 6007076422772529723}
-  playerBackpackPanel: {fileID: 6007076422772529723}
+  playerBackpackPanel: {fileID: 5518670036613389416}
   playerEquipementPanel: {fileID: 6864922512848255632}
   skillTreePanel: {fileID: 7669146649616921439}
   menu: {fileID: 2698395518983725757}
   save: {fileID: 8676907776791172429}
   load: {fileID: 1357353013194996702}
   delete: {fileID: 4260983035905471801}
+  IsOpenMenu: 0
+  _currentPage: 0

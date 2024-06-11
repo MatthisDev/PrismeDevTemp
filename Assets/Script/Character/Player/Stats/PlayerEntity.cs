@@ -79,6 +79,11 @@ public class PlayerEntity : MonoBehaviour
         }
     }
 
+    public void TakeDamage(MonsterData monsterData)
+    {
+        
+    }
+
     public void GainExp(float xp)
     {
         Exp += xp;
