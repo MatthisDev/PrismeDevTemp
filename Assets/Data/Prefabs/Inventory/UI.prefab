@@ -11612,7 +11612,6 @@ MonoBehaviour:
   save: {fileID: 8676907776791172429}
   load: {fileID: 1357353013194996702}
   delete: {fileID: 4260983035905471801}
-<<<<<<< HEAD
   _currentPage: 0
   bgInventory: {fileID: 4891932147963847220}
   bgInventoryChest: {fileID: 7665544409262343946}
@@ -11842,7 +11841,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-=======
-  IsOpenMenu: 0
-  _currentPage: 0
->>>>>>> e67225d150d068cb7426594b2c87d17a4a1b832b

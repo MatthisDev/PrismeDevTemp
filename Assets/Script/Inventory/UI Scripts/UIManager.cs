@@ -29,7 +29,6 @@ namespace Script.Inventory.UI_Scripts
         public Button load;
         public Button delete;
 
-<<<<<<< HEAD
         public bool IsOpenInventory { private set; get; }
         public bool IsOpenEquipment { private set; get; }
         public bool IsOpenChest { private set; get; }
@@ -37,22 +36,11 @@ namespace Script.Inventory.UI_Scripts
         public bool IsOpenSkillTree { private set; get; }
         public bool IsPageMode { private set; get; }
         
-=======
         
-        public bool IsOpenInventory {private set; get;}
-        public bool IsOpenEquipment {private set; get;}
-        public bool IsOpenMenu;
-        public bool IsOpenSkillTree { private set; get; }
-        public bool IsPageMode;
-
-        public bool IsOpenChest { private set; get; }
-
->>>>>>> e67225d150d068cb7426594b2c87d17a4a1b832b
-
         [HideInInspector] 
         public List<Action<bool>> Pages;
 
-        public int _currentPage;
+        private int _currentPage;
         public int CurrentPage
         {
             get => _currentPage;
