@@ -3,52 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System;
+using Script.Monsters;
 using Unity.Mathematics;
 using Random = System.Random;
 
-
-public class MonsterAI : MonoBehaviour
+[Serializable]
+public class MonsterAI : AI
 {
-    [SerializeField] private Transform player;
-    [SerializeField] private PlayerEntity PlayerEntity;
-    [SerializeField] private NavMeshAgent Agent;
-    [SerializeField] private MonsterEntity MonsterEntity;
-    [SerializeField] private Animator Animator;
-    [SerializeField] private bool isattacking;
+    [SerializeField] private LayerMask LayerMask;
     
     void Start()
     {
         setplayer();
         Agent.speed = MonsterEntity.MonsterData.speed;
+        canTurn = true;
     }
 
     
     void Update()
     {
-        if (!PlayerEntity.IsDead)
+        if (!IsDead)
         {
-            if (Vector3.Distance(player.position,transform.position)<MonsterEntity.MonsterData.attackradius)
+            if (!PlayerEntity.IsDead)
             {
-                Quaternion rot = Quaternion.LookRotation(player.position - transform.position);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rot, 120 * Time.deltaTime);
-                if (!isattacking)
-                { 
-                    StartCoroutine(AttackPlayer());
-                } 
-            }
-            else {
-                if (!isattacking)
+                if (Vector3.Distance(player.position,transform.position)<MonsterEntity.MonsterData.attackradius)
                 {
-                    Agent.SetDestination(player.position);
+                    if (canTurn)
+                    {
+                        Quaternion rot = Quaternion.LookRotation(player.position - transform.position);
+                        transform.rotation = Quaternion.Slerp(transform.rotation, rot, 5 * Time.deltaTime);
+                    }
+                    if (!isattacking)
+                    { 
+                        StartCoroutine(AttackPlayer());
+                    } 
+                }
+                else {
+                    if (!isattacking)
+                    {
+                        Agent.SetDestination(player.position);
+                    }
                 }
             }
-        }
-        else
-        {
-            setplayer();
+            else
+            {
+                setplayer();
+            }
+        
+            Animator.SetFloat("Speed",Agent.velocity.magnitude);
         }
         
-        Animator.SetFloat("Speed",Agent.velocity.magnitude);
     }
 
     private void setplayer()
@@ -64,11 +68,28 @@ public class MonsterAI : MonoBehaviour
     {
         isattacking = true;
         Agent.isStopped = true;
+        canTurn = false;
         Animator.SetTrigger("Attack");
-        PlayerEntity.TakeDamage(MonsterEntity.MonsterData);
-        yield return new WaitForSeconds(MonsterEntity.MonsterData.attackdelay);
+        yield return new WaitForSeconds(1.5f);
+        Ray r = new Ray(transform.position + new Vector3(0,1), transform.forward);
+        if (Physics.Raycast(r, out RaycastHit hit, MonsterEntity.MonsterData.attackradius,LayerMask))
+        {
+            if (hit.collider.gameObject.TryGetComponent(out PlayerEntity playerHit))
+            {
+                playerHit.TakeDamage(MonsterEntity.MonsterData);
+            }
+        }
+        yield return new WaitForSeconds(MonsterEntity.MonsterData.attackdelay-1.5f);
         Agent.isStopped = false;
         isattacking = false;
+    }
+
+    public override void die()
+    {
+        IsDead = true;
+        Agent.isStopped = true;
+        Animator.SetTrigger("Death");
+        
     }
     
 }

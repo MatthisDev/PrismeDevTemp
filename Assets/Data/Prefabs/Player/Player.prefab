@@ -1609,7 +1609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2106846599
+  GlobalObjectIdHash: 3419717883
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -1774,6 +1774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4696daf1e0794234fa2791cb49492921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Animator: {fileID: -3523802423255217743}
   MaxPv:
     BaseValue: 100
   Strength:
@@ -1787,6 +1788,7 @@ MonoBehaviour:
   NecessaryExp: 0
   Level: 0
   SkillPoints: 0
+  IsDead: 0
 --- !u!114 &-7759338914961536752
 MonoBehaviour:
   m_ObjectHideFlags: 0

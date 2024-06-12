@@ -2,13 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using Script.Monsters;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 [Serializable]
 public class MonsterEntity : MonoBehaviour //script qui gère les stats des monstres à faire
 {
     public MonsterData MonsterData;
-    public MonsterAI MonsterAI;
+    public AI MonsterAI;
     public float Pv;
 
     private void Awake()
@@ -26,9 +29,16 @@ public class MonsterEntity : MonoBehaviour //script qui gère les stats des mons
         }
     }
 
+    private void Update()
+    {
+        if (Keyboard.current.kKey.wasPressedThisFrame)
+        {
+            Death();
+        }
+    }
+
     private void Death()
     {
-        
-        Destroy(this.gameObject);
+        MonsterAI.die();
     }
 }

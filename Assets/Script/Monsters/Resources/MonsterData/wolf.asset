@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MonsterID: 0
   MonsterName: Wolf
-  PV: 100
+  PV: 50
   speed: 3
   AttackValue: 10
   attackradius: 2.5

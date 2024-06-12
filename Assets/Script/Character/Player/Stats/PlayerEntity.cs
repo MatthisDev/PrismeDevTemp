@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 // script qui gère les stats du joueur
-public class PlayerEntity : MonoBehaviour 
+public class PlayerEntity : MonoBehaviour
 {
+    [SerializeField] private Animator Animator;
+    
     public PlayerStat MaxPv;
     public PlayerStat Strength;
     public PlayerStat Defense;
@@ -90,10 +92,12 @@ public class PlayerEntity : MonoBehaviour
             Die();
         }
     }
+    
 
     private void Die()
     {
         IsDead = true;
+        Animator.SetTrigger("Die");
     }
 
     public void GainExp(float xp)
