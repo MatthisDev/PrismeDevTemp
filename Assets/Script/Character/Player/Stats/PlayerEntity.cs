@@ -1,8 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Monsters;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 // script qui gère les stats du joueur
 public class PlayerEntity : MonoBehaviour
 {
@@ -21,13 +24,29 @@ public class PlayerEntity : MonoBehaviour
     public int SkillPoints;
 
     public bool IsDead;
+    public bool isAttacking;
+
+    public LayerMask LayerMask;
 
     private void Awake()
     {
         NecessaryExp = 100;
         Level = 1;
         PV = MaxPv.Value;
+        isAttacking = false;
     }
+
+    private void Update()
+    {
+        if (!isAttacking && !IsDead)
+        {
+            if (Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                attack();
+            }
+        }
+    }
+
     public void EquipEquipement(InventoryItemData item) // Ajouter tous les bonus possibles venant de l'équipement
     {
         bool PvAtmMax = MaxPv.Value == PV;
@@ -90,6 +109,18 @@ public class PlayerEntity : MonoBehaviour
         if (PV<=0 && !IsDead)
         {
             Die();
+        }
+    }
+
+    private void attack()
+    {
+        Ray r = new Ray(transform.position + new Vector3(0,1), transform.forward);
+        if (Physics.Raycast(r, out RaycastHit hit, 2,LayerMask))
+        {
+            if (hit.collider.gameObject.TryGetComponent(out MonsterEntity monsterEntity))
+            {
+                monsterEntity.TakeDamage(this);
+            }
         }
     }
     

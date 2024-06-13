@@ -72,6 +72,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36d665d8a7d9e374dbd57ce105690c0b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7320362488037134967}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 36d665d8a7d9e374dbd57ce105690c0b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8144736040301361922}
   m_SourcePrefab: {fileID: 100100000, guid: 36d665d8a7d9e374dbd57ce105690c0b, type: 3}
 --- !u!1 &1935333806456852385 stripped
 GameObject:
@@ -159,3 +162,26 @@ MonoBehaviour:
   MonsterData: {fileID: 11400000, guid: 2a99e518c90c40849b06afbae0092825, type: 2}
   MonsterAI: {fileID: 7791219756629098471}
   Pv: 0
+--- !u!136 &8144736040301361922
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935333806456852385}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}

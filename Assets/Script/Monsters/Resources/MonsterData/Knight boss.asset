@@ -15,9 +15,9 @@ MonoBehaviour:
   MonsterID: 1
   MonsterName: Knight boss
   PV: 400
-  speed: 2.5
+  speed: 3.5
   AttackValue: 20
-  attackradius: 1
+  attackradius: 1.5
   attackdelay: 2
   DropsTable:
     InventorySlots:

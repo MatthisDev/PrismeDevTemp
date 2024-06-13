@@ -20,9 +20,9 @@ public class MonsterEntity : MonoBehaviour //script qui gère les stats des mons
     }
 
     
-    public void TakeDamage(float Damage)
+    public void TakeDamage(PlayerEntity playerEntity)
     {
-        Pv -= Damage;
+        Pv -= playerEntity.Strength.Value;
         if (Pv<=0)
         {
             Death();

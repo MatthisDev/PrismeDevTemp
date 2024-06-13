@@ -1789,6 +1789,10 @@ MonoBehaviour:
   Level: 0
   SkillPoints: 0
   IsDead: 0
+  isAttacking: 0
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &-7759338914961536752
 MonoBehaviour:
   m_ObjectHideFlags: 0
