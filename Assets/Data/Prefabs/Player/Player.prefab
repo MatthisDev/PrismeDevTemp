@@ -1710,8 +1710,10 @@ MonoBehaviour:
   isPerformingAction: 0
   isGrounded: 1
   isJumping: 0
-  prefabCamera: {fileID: 7231190575289686333, guid: aa57c21a96e31934db3fab51eb3e66dd, type: 3}
-  prefabUI: {fileID: 9046882852637724368, guid: bbbcb26840bc49b4fba6358407c7e1e9, type: 3}
+  prefabCamera: {fileID: 7231190575289686333, guid: aa57c21a96e31934db3fab51eb3e66dd,
+    type: 3}
+  prefabUI: {fileID: 9046882852637724368, guid: bbbcb26840bc49b4fba6358407c7e1e9,
+    type: 3}
 --- !u!114 &-5312975104834059398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1778,6 +1780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4696daf1e0794234fa2791cb49492921, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Animator: {fileID: -3523802423255217743}
   MaxPv:
     BaseValue: 100
   Strength:
@@ -1792,6 +1795,10 @@ MonoBehaviour:
   Level: 0
   SkillPoints: 0
   IsDead: 0
+  isAttacking: 0
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!114 &-7759338914961536752
 MonoBehaviour:
   m_ObjectHideFlags: 0
