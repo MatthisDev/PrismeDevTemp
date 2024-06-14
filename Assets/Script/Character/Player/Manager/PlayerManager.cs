@@ -14,7 +14,9 @@ namespace Script.Player
 
         [HideInInspector] public PlayerAnimatorManager PlayerAnimatorManager { get; set; }
         [HideInInspector] public PlayerMovementManager PlayerMovementManager { set; get; }
-        [SerializeField] GameObject PrefabCamera;
+        [HideInInspector] public PlayerNetworkManager PlayerNetworkManager { set; get; }
+        [SerializeField] GameObject prefabCamera;
+        [SerializeField] GameObject prefabUI;
 
         // Elle est appellé au tout debut
         protected override void Awake()
@@ -22,6 +24,7 @@ namespace Script.Player
             base.Awake();
             PlayerMovementManager = GetComponent<PlayerMovementManager>();
             PlayerAnimatorManager = GetComponent<PlayerAnimatorManager>();
+            PlayerNetworkManager = GetComponent<PlayerNetworkManager>();
         }
 
         protected void Start()
@@ -38,10 +41,14 @@ namespace Script.Player
             // Si on est le proprietaire du perso on lui fait spawn une camera associe et l'initialise
             if (IsOwner)
             {
-                Instantiate(PrefabCamera, transform.position, transform.rotation);
+                
+                Instantiate(prefabCamera, transform.position, transform.rotation);
+                Instantiate(prefabUI, transform.position, transform.rotation);
+                Debug.Log(this.transform.position);
                 PlayerCamera.Instance.Player = this;
                 PlayerInputManager.Instance.Player = this;
-                SpawnItems.Instance.Spawn();
+                //SpawnItems.Instance.Spawn();
+                
             }
         }
         
@@ -51,6 +58,7 @@ namespace Script.Player
          */
         protected override void Update()
         {
+            base.Update();
             // si ce n'est pas notre perso alors on ne fait rien
             if (!IsOwner) return;
             PlayerMovementManager.HandleAllMovement();

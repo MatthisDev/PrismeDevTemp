@@ -30,7 +30,6 @@ public class WorldSaveManager : MonoBehaviour
     void Start()
     {
         DontDestroyOnLoad(gameObject);
-        
     }
 
     public IEnumerator LoadNewGame()

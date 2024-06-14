@@ -75,6 +75,11 @@ namespace Script.Inventory.UI_Scripts
 
         }
 
+        private void Start()
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+
         private void Update()
         {
             OpenInputInventoryAction(false);

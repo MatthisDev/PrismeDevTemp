@@ -13,16 +13,21 @@ namespace Script.Player.Movement
     public class PlayerMovementManager : CharacterMovementManager 
     {
         private PlayerManager PlayerManager { set; get; }
-        
         private float VerticalMovement { get; set; } 
         private float HorizontalMovement { get; set; }
-        private float moveAmount;
-        
         [SerializeField] private float runningSpeed = 10;
+        [SerializeField] private float sprintingSpeed = 11;
         [SerializeField] private float walkingSpeed = 2;
         [SerializeField] private float rotationSpeed = 15;
+        [SerializeField] Vector3 rollDirection;
         
+        //Jump
+        [SerializeField] private Vector3 jumpDirection;
+        [SerializeField] private float jumpingForwardSpeed = 10;
+        [SerializeField] private float fallingForwardSpeed = 5;
+        [SerializeField] private float jumpHeight = 2;
         public Vector3 MoveDirection { get; private set; }
+        public float Velocity => runningSpeed;
         public Vector3 RotationDirection { get; private set; }
         protected override void Awake()
         {
@@ -34,15 +39,20 @@ namespace Script.Player.Movement
         // gere les mouvements
         public void HandleAllMovement()
         {
-            if (!UIManager.Instance.IsOpenInventory)
+            if (PlayerManager.isPerformingAction)
+                return;
+            if (UIManager.Instance != null && !UIManager.Instance.IsOpenInventory)
             {
                 HandleGroundMovement();
                 HandleRotation();
+                HandleJumpingMovement();
+                HandleFreeFallMovement();
             }
         }
 
-        public void Update()
+        protected override void Update()
         {
+            base.Update();
             HandleAllMovement();
         }
 
@@ -65,15 +75,24 @@ namespace Script.Player.Movement
             var vector3 = MoveDirection;
             vector3.y = 0;
             MoveDirection = vector3;
-            
-            if (PlayerInputManager.Instance.moveAmount > 0.5f)
+
+            if (PlayerManager.PlayerNetworkManager.isSprinting.Value)
             {
-                // on court
-                this.PlayerManager.CharacterController.Move(MoveDirection * (runningSpeed * Time.deltaTime));
-            }else if (PlayerInputManager.Instance.moveAmount <= 0.5f)
+                this.PlayerManager.CharacterController.Move(MoveDirection * (sprintingSpeed * Time.deltaTime));
+            }
+            else
             {
-                // on marche 
-                PlayerManager.CharacterController.Move(MoveDirection * (walkingSpeed * Time.deltaTime));
+
+                if (PlayerInputManager.Instance.moveAmount > 0.5f)
+                {
+                    // on court
+                    this.PlayerManager.CharacterController.Move(MoveDirection * (runningSpeed * Time.deltaTime));
+                }
+                else if (PlayerInputManager.Instance.moveAmount <= 0.5f)
+                {
+                    // on marche 
+                    PlayerManager.CharacterController.Move(MoveDirection * (walkingSpeed * Time.deltaTime));
+                }
             }
         }
         
@@ -99,6 +118,105 @@ namespace Script.Player.Movement
             
             // Position final
             transform.rotation = Quaternion.Slerp(transform.rotation, turn, rotationSpeed * Time.deltaTime);
+        }
+
+        private void HandleJumpingMovement()
+        {
+            if (PlayerManager.isJumping)
+            {
+                PlayerManager.CharacterController.Move(jumpDirection * (jumpingForwardSpeed * Time.deltaTime));
+
+            }
+            
+        }
+        private void HandleFreeFallMovement()
+        {
+            if (!PlayerManager.isGrounded)
+            {
+                Vector3 freeFallDirection;
+                freeFallDirection = PlayerCamera.Instance.transform.forward *
+                                    PlayerInputManager.Instance.horizontalInput;
+                freeFallDirection += PlayerCamera.Instance.transform.right * PlayerInputManager.Instance.verticalInput;
+                freeFallDirection.y = 0;
+
+                PlayerManager.CharacterController.Move(freeFallDirection * (fallingForwardSpeed * Time.deltaTime));
+            }
+        }
+        
+        public void HandleSprinting()
+        {
+            if (PlayerManager.isPerformingAction)
+            {
+                this.PlayerManager.PlayerNetworkManager.isSprinting.Value = false;
+            }
+    
+            if (PlayerInputManager.Instance.moveAmount >= 0.5)
+                PlayerManager.PlayerNetworkManager.isSprinting.Value = true;
+            else
+                this.PlayerManager.PlayerNetworkManager.isSprinting.Value = false;
+        }
+        
+
+        public void AttemptToPerformDodge()
+        {
+            if (PlayerManager.isPerformingAction)
+                return;
+
+            if (PlayerInputManager.Instance.moveAmount > 0)
+            {
+                Debug.Log("try to dodge");
+                rollDirection = PlayerCamera.Instance.CameraObject.transform.forward *
+                                PlayerInputManager.Instance.verticalInput;
+                rollDirection += PlayerCamera.Instance.CameraObject.transform.right *
+                                 PlayerInputManager.Instance.horizontalInput;
+                rollDirection.y = 0;
+                rollDirection.Normalize();
+
+                Quaternion playerRotation = Quaternion.LookRotation(rollDirection);
+                PlayerManager.transform.rotation = playerRotation;
+
+                PlayerManager.PlayerAnimatorManager.PlayTargetActionAnimation("Roll_Forward_01", true, true);
+            }
+            else // on fait le "backstep" dans le cas ou on ne pas
+            {
+                Debug.Log("try to back step");
+                PlayerManager.PlayerAnimatorManager.PlayTargetActionAnimation("Back_Step_01", true, true);
+            }
+
+        }
+
+        public void AttemptToPerformJump()
+        {
+            if (PlayerManager.isPerformingAction)
+                return;
+            
+            if (PlayerManager.isJumping)
+                return;
+            if (!PlayerManager.isGrounded)
+                return;
+
+            PlayerManager.PlayerAnimatorManager.PlayTargetActionAnimation("Main_Jump_Start_01", false);
+            PlayerManager.isJumping = true;
+            jumpDirection = PlayerCamera.Instance.CameraObject.transform.forward * PlayerInputManager.Instance.verticalInput;
+            jumpDirection += PlayerCamera.Instance.CameraObject.transform.right *
+                             PlayerInputManager.Instance.horizontalInput;
+            jumpDirection.y = 0;
+
+            if (jumpDirection != Vector3.zero)
+            {
+                // on ne va pas aussi loin en fonction de notre vitesse
+                if (PlayerManager.PlayerNetworkManager.isSprinting.Value)
+                    jumpDirection *= 1;
+                else if (PlayerInputManager.Instance.moveAmount >= 0.5)
+                    jumpDirection *= 0.5f;
+                else if (PlayerInputManager.Instance.moveAmount < 0.5)
+                    jumpDirection *= 0.25f;
+            }
+        }
+
+        public void ApplyJumpingVelocity()
+        {
+            yVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravityForce);
         }
     }
 }

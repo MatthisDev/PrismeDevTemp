@@ -9,12 +9,17 @@ public class CharacterManager : NetworkBehaviour
 {
     public CharacterController CharacterController { set; get; }
     public Animator CharacterAnimator { get; set; }
+    public CharacterNetworkManager CharacterNetworkManager { set; get; }
+    // permet de ne pas faire +sieurs actions en meme temps
+    public bool isPerformingAction = false;
+    public bool isGrounded = true;
+    public bool isJumping = false;
     
-    private CharacterNetworkManager CharacterNetworkManager { set; get; }
+    
     
     protected virtual void Awake()
     {
-       DontDestroyOnLoad(this);
+       //DontDestroyOnLoad(this);
        
        this.CharacterController = GetComponent<CharacterController>();
        this.CharacterAnimator = GetComponent<Animator>();
@@ -22,6 +27,7 @@ public class CharacterManager : NetworkBehaviour
     }
     protected virtual void Update()
     {
+        this.CharacterAnimator.SetBool("isGrounded", isGrounded);
         if (IsOwner)
         {
             // si on est le owner du perso alors on envoie notre position sur le network 

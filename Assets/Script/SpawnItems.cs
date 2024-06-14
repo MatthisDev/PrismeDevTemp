@@ -26,7 +26,7 @@ public class SpawnItems : MonoBehaviour
 
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
     public void Spawn()
     {

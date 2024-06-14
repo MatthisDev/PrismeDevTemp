@@ -29,10 +29,13 @@ public class PlayerInputManager : MonoBehaviour
     [HideInInspector] public float cameraHorizontalInput;
 
     // Input action
-    [SerializeField] public bool inventoryInput;
-    [SerializeField] public bool closeInput;
-    [SerializeField] public int pageInput;
-    [SerializeField] public bool interactInput;
+    [SerializeField] public bool inventoryInput = false;
+    [SerializeField] public bool closeInput = false;
+    [SerializeField] public int pageInput = 0;
+    [SerializeField] public bool interactInput = false;
+    [SerializeField] private bool dodgeInput = false;
+    [SerializeField] private bool sprintInput = false;
+    [SerializeField] private bool jumpInput = false;
     private int PageInput
     {
         get => pageInput;
@@ -54,9 +57,10 @@ public class PlayerInputManager : MonoBehaviour
         cameraInput = Vector2.zero;
         cameraVerticalInput = 0;
         cameraHorizontalInput = 0;
-        
-        Player.PlayerAnimatorManager.UpdateAnimationMovementVariable(0,0);
-        
+
+        if (Player.PlayerAnimatorManager != null)
+            Player.PlayerAnimatorManager.UpdateAnimationMovementVariable(0, 0, false);
+
     }
     // Execute avant le Start (au tout tout debut)
     private void Awake()
@@ -106,6 +110,13 @@ public class PlayerInputManager : MonoBehaviour
             
             //action
             this.PlayerControls.PlayerActions.Interact.performed += i => interactInput = i.ReadValueAsButton();
+            this.PlayerControls.PlayerActions.Dodge.performed += i => dodgeInput = i.ReadValueAsButton();
+
+            this.PlayerControls.PlayerActions.Jump.performed += i => jumpInput = true;
+            
+            this.PlayerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
+            this.PlayerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
+            
             inventoryInput = this.PlayerControls.PlayerActions.Close.IsPressed();
         }
 
@@ -133,10 +144,11 @@ public class PlayerInputManager : MonoBehaviour
     
     private void Update()
     {
-        if (UIManager.Instance != null && !UIManager.Instance.IsOpenMenu && !UIManager.Instance.IsPageMode && !UIManager.Instance.IsOpenChest)
+        if (!UIManager.Instance) return;
+        
+        if (!UIManager.Instance.IsOpenMenu && !UIManager.Instance.IsPageMode && !UIManager.Instance.IsOpenChest)
         {
-            HandleMovementInput();
-            HandleCameraMovementInput();
+            HandleAllInputs();
         }
         else // on reset les input pour annuler tout mouvement durant l ouverture de l inventaire
             Reset();
@@ -150,6 +162,14 @@ public class PlayerInputManager : MonoBehaviour
         this.pageInput = 0;
     }
 
+    private void HandleAllInputs()
+    {
+        HandleMovementInput(); 
+        HandleCameraMovementInput(); 
+        HandleDodgeInput();
+        HandleSprinting();
+        HandleJumpInput();
+    }
     private void HandleMovementInput()
     {
         verticalInput = movementInput.y;
@@ -165,7 +185,7 @@ public class PlayerInputManager : MonoBehaviour
         
         if(Player.IsSpawned) 
             // on specifie juste le mouvement avant
-            Player.PlayerAnimatorManager.UpdateAnimationMovementVariable(0, moveAmount);
+            Player.PlayerAnimatorManager.UpdateAnimationMovementVariable(0, moveAmount, Player.PlayerNetworkManager.isSprinting.Value);
     }
     
     private void HandleCameraMovementInput()
@@ -174,4 +194,35 @@ public class PlayerInputManager : MonoBehaviour
         cameraHorizontalInput = cameraInput.x;
     }
 
+    private void HandleDodgeInput()
+    {   
+        if (dodgeInput)
+        {
+            Debug.Log("L" + $"{moveAmount}");
+            dodgeInput = false;
+            Player.PlayerMovementManager.AttemptToPerformDodge();
+        }
+    }
+
+    private void HandleSprinting()
+    {
+        if (sprintInput)
+        {
+            Player.PlayerMovementManager.HandleSprinting();
+        }
+        else
+        {
+            Player.PlayerNetworkManager.isSprinting.Value = false;
+        }
+    }
+
+    private void HandleJumpInput()
+    {
+        if (jumpInput)
+        {
+            jumpInput = false;
+            Player.PlayerMovementManager.AttemptToPerformJump();
+        }
+        
+    }
 }
