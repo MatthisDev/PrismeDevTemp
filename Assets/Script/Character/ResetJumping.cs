@@ -12,8 +12,7 @@ public class ResetJumping : StateMachineBehaviour
         if (Character == null)
             Character = animator.GetComponent<CharacterManager>();
         
-        Character.isPerformingAction = false;
-        Character.CharacterAnimator.applyRootMotion = false;
+        Debug.Log("stop jumping");
         Character.isJumping = false;
     }
 

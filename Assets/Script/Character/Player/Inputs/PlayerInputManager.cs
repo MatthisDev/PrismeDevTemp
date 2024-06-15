@@ -36,6 +36,7 @@ public class PlayerInputManager : MonoBehaviour
     [SerializeField] private bool dodgeInput = false;
     [SerializeField] private bool sprintInput = false;
     [SerializeField] private bool jumpInput = false;
+    [SerializeField] private bool attackInput = false;
     private int PageInput
     {
         get => pageInput;
@@ -110,12 +111,13 @@ public class PlayerInputManager : MonoBehaviour
             
             //action
             this.PlayerControls.PlayerActions.Interact.performed += i => interactInput = i.ReadValueAsButton();
-            this.PlayerControls.PlayerActions.Dodge.performed += i => dodgeInput = i.ReadValueAsButton();
-
-            this.PlayerControls.PlayerActions.Jump.performed += i => jumpInput = true;
+            this.PlayerControls.PlayerActions.Attack.performed += i => attackInput = true;
             
+            this.PlayerControls.PlayerActions.Dodge.performed += i => dodgeInput = i.ReadValueAsButton();
+            this.PlayerControls.PlayerActions.Jump.performed += i => jumpInput = true;
             this.PlayerControls.PlayerActions.Sprint.performed += i => sprintInput = true;
             this.PlayerControls.PlayerActions.Sprint.canceled += i => sprintInput = false;
+            
             
             inventoryInput = this.PlayerControls.PlayerActions.Close.IsPressed();
         }
@@ -169,6 +171,7 @@ public class PlayerInputManager : MonoBehaviour
         HandleDodgeInput();
         HandleSprinting();
         HandleJumpInput();
+        HandleAttackInput();
     }
     private void HandleMovementInput()
     {
@@ -198,7 +201,6 @@ public class PlayerInputManager : MonoBehaviour
     {   
         if (dodgeInput)
         {
-            Debug.Log("L" + $"{moveAmount}");
             dodgeInput = false;
             Player.PlayerMovementManager.AttemptToPerformDodge();
         }
@@ -223,6 +225,14 @@ public class PlayerInputManager : MonoBehaviour
             jumpInput = false;
             Player.PlayerMovementManager.AttemptToPerformJump();
         }
-        
+    }
+
+    private void HandleAttackInput()
+    {
+        if (attackInput)
+        {
+            attackInput = false;
+            Player.AttemptToPerformAttack();
+        }
     }
 }

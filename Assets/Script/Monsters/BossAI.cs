@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Script.Monsters;
+using Script.Player;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
@@ -26,7 +27,7 @@ public class BossAI : AI
     {
         if (!IsDead)
         {
-            if (!PlayerEntity.IsDead)
+            if (!playerManager.isDead)
             {
                 if (Vector3.Distance(player.position,transform.position)<MonsterEntity.MonsterData.attackradius)
                 {
@@ -64,7 +65,7 @@ public class BossAI : AI
             }
         }
         player = choosenplayer.transform;
-        PlayerEntity = choosenplayer.GetComponent<PlayerEntity>();
+        playerManager = choosenplayer.GetComponent<PlayerManager>();
     }
 
     public override void die()
@@ -83,7 +84,7 @@ public class BossAI : AI
         Ray r = new Ray(transform.position + new Vector3(0,1), transform.forward);
         if (Physics.Raycast(r, out RaycastHit hit, MonsterEntity.MonsterData.attackradius,LayerMask))
         {
-            if (hit.collider.gameObject.TryGetComponent(out PlayerEntity playerHit))
+            if (hit.collider.gameObject.TryGetComponent(out PlayerManager playerHit))
             {
                 playerHit.TakeDamage(MonsterEntity.MonsterData);
             }

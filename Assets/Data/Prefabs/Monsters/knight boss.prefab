@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95bf3c79124a6cc479daaf74f591337c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  PlayerEntity: {fileID: 0}
+  player: {fileID: 3595884332406776395, guid: 9461dd2f20d12e54b9ebbe3d0aef6b11, type: 3}
+  playerManager: {fileID: 2643133754183653479, guid: 9461dd2f20d12e54b9ebbe3d0aef6b11, type: 3}
   Agent: {fileID: 1209132409377982568}
   MonsterEntity: {fileID: 7320362488037134967}
   Animator: {fileID: 4648249541527034291}

@@ -1,4 +1,5 @@
 ﻿using System;
+using Script.Player;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +8,7 @@ namespace Script.Monsters
     public abstract class AI : MonoBehaviour
     {
         [SerializeField] protected Transform player;
-        [SerializeField] protected PlayerEntity PlayerEntity;
+        [SerializeField] protected PlayerManager playerManager ;
         [SerializeField] protected NavMeshAgent Agent;
         [SerializeField] protected MonsterEntity MonsterEntity;
         [SerializeField] protected Animator Animator;

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using System;
 using Script.Monsters;
+using Script.Player;
 using Unity.Mathematics;
 using Random = System.Random;
 
@@ -24,7 +25,7 @@ public class MonsterAI : AI
     {
         if (!IsDead)
         {
-            if (!PlayerEntity.IsDead)
+            if (!playerManager.isDead)
             {
                 if (Vector3.Distance(player.position,transform.position)<MonsterEntity.MonsterData.attackradius)
                 {
@@ -61,7 +62,7 @@ public class MonsterAI : AI
         var players = GameObject.FindGameObjectsWithTag("Player");
         GameObject choosenplayer = players[ran.Next(0, players.Length - 1)];
         player = choosenplayer.transform;
-        PlayerEntity = choosenplayer.GetComponent<PlayerEntity>();
+        playerManager = choosenplayer.GetComponent<PlayerManager>();
     }
 
     IEnumerator AttackPlayer()
@@ -74,7 +75,7 @@ public class MonsterAI : AI
         Ray r = new Ray(transform.position + new Vector3(0,1), transform.forward);
         if (Physics.Raycast(r, out RaycastHit hit, MonsterEntity.MonsterData.attackradius,LayerMask))
         {
-            if (hit.collider.gameObject.TryGetComponent(out PlayerEntity playerHit))
+            if (hit.collider.gameObject.TryGetComponent(out PlayerManager playerHit))
             {
                 playerHit.TakeDamage(MonsterEntity.MonsterData);
             }

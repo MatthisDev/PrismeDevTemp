@@ -39,11 +39,11 @@ namespace Script.Player.Skill_System.UI
 
         public void PopulateLabelText()// change le texte des labels
         {
-            _maxPvLabel.text = "PV Max : "+UIManager.PlayerSkillManager.player.MaxPv.Value.ToString();
-            _strengthLabel.text = "Force : "+UIManager.PlayerSkillManager.player.Strength.Value.ToString();
-            _defenseLabel.text = "Defense : "+UIManager.PlayerSkillManager.player.Defense.Value.ToString();
-            _intelligenceLabel.text = "Intelligence : "+UIManager.PlayerSkillManager.player.Intelligence.Value.ToString();
-            SkillPointsLabel.text = "Skill Points : "+UIManager.PlayerSkillManager.player.SkillPoints.ToString();
+            _maxPvLabel.text = "PV Max : "+UIManager.PlayerSkillManager.Player.maxPv.Value;
+            _strengthLabel.text = "Force : "+UIManager.PlayerSkillManager.Player.strength.Value;
+            _defenseLabel.text = "Defense : "+UIManager.PlayerSkillManager.Player.defense.Value;
+            _intelligenceLabel.text = "Intelligence : " + UIManager.PlayerSkillManager.Player.intelligence.Value;
+            SkillPointsLabel.text = "Skill Points : " + UIManager.PlayerSkillManager.Player.skillPoints;
         }
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Script.Player;
 using UnityEngine;
 [System.Serializable]
 public class InventorySlot : ISerializationCallbackReceiver
@@ -36,9 +37,9 @@ public class InventorySlot : ISerializationCallbackReceiver
    {
        if (equipementType != EquipementType.All)// si c'est un slot d'équipement déséquiper l'équipement
        {
-           GameObject player=GameObject.FindWithTag("Player");
-           PlayerEntity playerEntity = player.GetComponent<PlayerEntity>();
-           playerEntity.DesequipEquipement(itemData);
+           GameObject player = GameObject.FindWithTag("Player");
+           PlayerManager playerManager = player.GetComponent<PlayerManager>();
+           playerManager.Disarm(itemData);
        }
        itemData = null;
        _itemID = -1;
@@ -73,10 +74,10 @@ public class InventorySlot : ISerializationCallbackReceiver
 
    private void EquipItem(EquippableItem itemdata) //équipe un équipement
    {
-       GameObject player=GameObject.FindWithTag("Player");
-       PlayerEntity playerEntity = player.GetComponent<PlayerEntity>();
-       playerEntity.DesequipEquipement(itemData);
-       playerEntity.EquipEquipement(itemData);
+       GameObject player = GameObject.FindWithTag("Player");
+       PlayerManager playerManager = player.GetComponent<PlayerManager>();
+       playerManager.Disarm(itemData);
+       playerManager.EquipEquipment(itemData);
    }
 
    public bool RoomLeftInStack(int amountToAdd, out int amountRemaining) // would there be enouth room in the stack for the amount we're trying to add

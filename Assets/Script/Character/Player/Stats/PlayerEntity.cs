@@ -2,14 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Script.Monsters;
+using Script.Player;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+// USEFULL TOUT EST IMPLEM DANS MANAGER
 // script qui gère les stats du joueur
 public class PlayerEntity : MonoBehaviour
 {
-    [SerializeField] private Animator Animator;
+    //[SerializeField] private Animator animator;
+    
+    private PlayerManager Player { set; get; }
+    [SerializeField] private GameObject sword;
     
     public PlayerStat MaxPv;
     public PlayerStat Strength;
@@ -17,7 +21,6 @@ public class PlayerEntity : MonoBehaviour
     public PlayerStat Intelligence;
 
     public float PV;
-
     public float Exp;
     public float NecessaryExp;
     public int Level;
@@ -27,6 +30,8 @@ public class PlayerEntity : MonoBehaviour
     public bool isAttacking;
 
     public LayerMask LayerMask;
+    
+    public bool IsEquipped { private set; get; }
 
     private void Awake()
     {
@@ -34,6 +39,11 @@ public class PlayerEntity : MonoBehaviour
         Level = 1;
         PV = MaxPv.Value;
         isAttacking = false;
+        
+        Player = GetComponent<PlayerManager>();
+        // par defaut on a pas l'epee
+        sword.gameObject.SetActive(false);
+        IsEquipped = false;
     }
 
     private void Update()
@@ -59,26 +69,35 @@ public class PlayerEntity : MonoBehaviour
         Defense.AddModifier(new StatsModifier(equipement.DefensePercentBonus,StatModType.PercentMult,item));
         Intelligence.AddModifier(new StatsModifier(equipement.IntelligenceBonus,StatModType.Flat,item));
         Intelligence.AddModifier(new StatsModifier(equipement.IntelligencePercentBonus,StatModType.PercentMult,item));
-        Debug.Log("equiped");
         if (PvAtmMax)
-        {
             PV = MaxPv.Value;
-        }
         
+        HandleAnimationEquipment(true);
     }
 
+    private void HandleAnimationEquipment(bool activate)
+    {
+        if (!Player.isPerformingAction)
+        {
+            if (activate)
+                Player.PlayerAnimatorManager.PlayTargetActionAnimation("Sword_Equip_01", true, false);
+            sword.gameObject.SetActive(activate);
+            IsEquipped = activate;
+        }
+    }
     public void DesequipEquipement(InventoryItemData item) // enlever tous les bonus octroyé par l'équipement
     {
         MaxPv.RemoveAllModifiersFromSource(item);
         Strength.RemoveAllModifiersFromSource(item);
         Defense.RemoveAllModifiersFromSource(item);
         Intelligence.RemoveAllModifiersFromSource(item);
+        Debug.Log("desequiped");
         if (PV > MaxPv.Value) // mettre à jour les pv si ils sont décendu
-        {
             PV = MaxPv.Value;
-        }
+        
+        HandleAnimationEquipment(false);
     }
-
+    
     public void UnlockSkill(ScriptableSkill skill)
     {
         foreach (UpgradeData upgradeData in skill.UpgradeDatas)
@@ -119,7 +138,7 @@ public class PlayerEntity : MonoBehaviour
         {
             if (hit.collider.gameObject.TryGetComponent(out MonsterEntity monsterEntity))
             {
-                monsterEntity.TakeDamage(this);
+                //monsterEntity.TakeDamage(this);
             }
         }
     }
@@ -128,7 +147,7 @@ public class PlayerEntity : MonoBehaviour
     private void Die()
     {
         IsDead = true;
-        Animator.SetTrigger("Die");
+        Player.CharacterAnimator.SetTrigger("Die");
     }
 
     public void GainExp(float xp)
