@@ -29,15 +29,7 @@ public class MonsterEntity : MonoBehaviour //script qui gère les stats des mons
             Death();
         }
     }
-
-    private void Update()
-    {
-        if (Keyboard.current.kKey.wasPressedThisFrame)
-        {
-            Death();
-        }
-    }
-
+    
     private void Death()
     {
         MonsterAI.die();

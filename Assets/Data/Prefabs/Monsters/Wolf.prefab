@@ -895,7 +895,7 @@ MonoBehaviour:
   canTurn: 0
   LayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 257
 --- !u!114 &3251520758048575943
 MonoBehaviour:
   m_ObjectHideFlags: 0
