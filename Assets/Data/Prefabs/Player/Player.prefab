@@ -1779,13 +1779,13 @@ MonoBehaviour:
   prefabUI: {fileID: 9046882852637724368, guid: bbbcb26840bc49b4fba6358407c7e1e9, type: 3}
   sword: {fileID: 4275708051485196201}
   maxPv:
-    BaseValue: 0
+    BaseValue: 100
   strength:
-    BaseValue: 0
+    BaseValue: 10
   defense:
-    BaseValue: 0
+    BaseValue: 10
   intelligence:
-    BaseValue: 0
+    BaseValue: 10
   pv: 0
   exp: 0
   necessaryExp: 100

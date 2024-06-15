@@ -51,6 +51,7 @@ namespace Script.Player
             PlayerNetworkManager = GetComponent<PlayerNetworkManager>();
             // l'epee est invisible au debut 
             sword.gameObject.SetActive(false);
+            maxPv.BaseValue = 100f;
             pv = maxPv.Value;
         }
 
