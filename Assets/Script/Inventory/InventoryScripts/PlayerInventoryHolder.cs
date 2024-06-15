@@ -1,3 +1,4 @@
+using Script.Inventory.UI_Scripts;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -33,9 +34,9 @@ public class PlayerInventoryHolder : InventoryHolder // inventaire du joueur
     /*void Update()
     {
         PlayerInputManager inputInstance = PlayerInputManager.Instance;
-        if (!inputInstance.isOpenInventory && inputInstance.inventoryInput) // si on peut ouvrir l'inventaire (touche + pas deja ouvert)
+        UIManager.Instance.OpenInputInventoryAction(false);
+        if (!UIManager.Instance.IsOpenInventory && inputInstance.inventoryInput) // si on peut ouvrir l'inventaire (touche + pas deja ouvert)
         {
-            InventorySystem test = new InventorySystem(offset);
             
             OnPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset); // ouvre l'inventaire du joueur
             inputInstance.isOpenInventory = true;

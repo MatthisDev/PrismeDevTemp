@@ -1340,7 +1340,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 5.932, y: -342.6}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5768040390386711846
 CanvasRenderer:
@@ -7657,7 +7657,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 400, y: 200}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 524, y: 44}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1356479812883463177
 CanvasRenderer:
@@ -7831,7 +7831,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: -655, y: -75}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 524, y: 44}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5940897816576421070
 CanvasRenderer:
@@ -11494,6 +11494,7 @@ GameObject:
   - component: {fileID: 5028264403214320228}
   - component: {fileID: 7676682714680365976}
   - component: {fileID: 8267432438083188924}
+  - component: {fileID: 8200044612659354376}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -11601,9 +11602,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f4c09fce1dc2f042a49f2d03c51c385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryPanel: {fileID: 6007076422772529723}
-  playerBackpackPanel: {fileID: 5518670036613389416}
-  playerEquipementPanel: {fileID: 6864922512848255632}
   playerDynamicInventory: {fileID: 6007076422772529723}
   playerBackpackPanel: {fileID: 5518670036613389416}
   playerEquipmentPanel: {fileID: 6864922512848255632}
@@ -11612,10 +11610,29 @@ MonoBehaviour:
   save: {fileID: 8676907776791172429}
   load: {fileID: 1357353013194996702}
   delete: {fileID: 4260983035905471801}
-  _currentPage: 0
   bgInventory: {fileID: 4891932147963847220}
   bgInventoryChest: {fileID: 7665544409262343946}
   bgMenu: {fileID: 706611705070652177}
+--- !u!114 &8200044612659354376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9046882852637724368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 1536000104
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &9055719102440678943
 GameObject:
   m_ObjectHideFlags: 0

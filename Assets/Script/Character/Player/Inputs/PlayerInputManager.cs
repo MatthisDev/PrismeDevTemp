@@ -29,9 +29,9 @@ public class PlayerInputManager : MonoBehaviour
     [HideInInspector] public float cameraHorizontalInput;
 
     // Input action
+    [SerializeField] public int pageInput = 0;
     [SerializeField] public bool inventoryInput = false;
     [SerializeField] public bool closeInput = false;
-    [SerializeField] public int pageInput = 0;
     [SerializeField] public bool interactInput = false;
     [SerializeField] private bool dodgeInput = false;
     [SerializeField] private bool sprintInput = false;
