@@ -201,6 +201,7 @@ namespace Script.Player
         {
             pv -= monsterData.AttackValue * (1 - defense.Value / 100);
             pv = (float)Math.Round(pv,2);
+            CharacterAnimator.SetTrigger("Damage");
             
             if (pv<=0 && !isDead)
             {

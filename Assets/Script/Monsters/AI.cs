@@ -11,9 +11,9 @@ namespace Script.Monsters
         [SerializeField] protected PlayerManager playerManager ;
         [SerializeField] protected NavMeshAgent Agent;
         [SerializeField] protected MonsterEntity MonsterEntity;
-        [SerializeField] protected Animator Animator;
+        [SerializeField] public Animator Animator;
         [SerializeField] protected bool isattacking;
-        [SerializeField] protected bool IsDead;
+        [SerializeField] public bool IsDead;
         [SerializeField] protected bool canTurn;
         public abstract void die();
     }

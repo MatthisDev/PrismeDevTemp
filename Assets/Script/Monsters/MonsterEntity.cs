@@ -23,11 +23,14 @@ public class MonsterEntity : MonoBehaviour //script qui gère les stats des mons
     
     public void TakeDamage(PlayerManager playerManager)
     {
+        if (MonsterAI.IsDead) return;
         Pv -= playerManager.strength.Value;
         if (Pv<=0)
         {
             Death();
         }
+        if (Pv<=0) return;
+        MonsterAI.Animator.SetTrigger("Damage");
     }
     
     private void Death()

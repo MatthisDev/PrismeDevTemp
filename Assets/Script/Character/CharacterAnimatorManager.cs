@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CharacterAnimatorManager : MonoBehaviour
 {
-    private CharacterManager character;
+    public CharacterManager character;
     private int vertical;
     private int horizontal;
     protected virtual void Awake()
